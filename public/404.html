@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ResumeGenie & ID Creator</title>
+    <script type="text/javascript">
+      // Single Page Application redirect for GitHub Pages
+      // Ensures subpaths redirect to root index with proper query parameters
+      (function() {
+        var pathSegmentsToKeep = 1;
+        var l = window.location;
+        l.replace(
+          l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+          l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
+          l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
+          (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+          l.hash
+        );
+      })();
+    </script>
+  </head>
+  <body style="font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; background-color: #f8fafc; color: #334155;">
+    <div style="text-align: center;">
+      <h2 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">Redirecting...</h2>
+      <p style="font-size: 0.875rem; color: #64748b;">Loading ResumeGenie & ID Creator. If you are not redirected, <a href="./" style="color: #4f46e5; text-decoration: underline;">click here</a>.</p>
+    </div>
+  </body>
+</html>
