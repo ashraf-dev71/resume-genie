@@ -48,6 +48,9 @@ git push -u origin main
 
 ## 🛠️ লোকাল ডেভেলপমেন্ট (Local Development)
 
+GitHub Pages-এর **Source** অবশ্যই **GitHub Actions** রাখতে হবে, যাতে production
+build-এর `dist` artifact deploy হয়।
+
 ```bash
 # ডিপেন্ডেন্সি ইন্সটল করুন
 npm install
