@@ -1,63 +1,54 @@
 # ResumeGenie & ID Creator
 
-Client-side ATS-friendly CV builder, student ID card generator, and skill badge tracker with bilingual English and Bengali support, 100% private local storage.
+ResumeGenie is a client-side ATS-friendly CV builder, student ID card creator,
+certificate maker, and skill badge tracker with English and Bengali support.
+User data stays in the browser's local storage.
 
----
+## Requirements
 
-## 🚀 GitHub-এ Host / Deploy করার নিয়ম (GitHub Pages Setup Guide)
+- Node.js 20 or newer
+- npm 10 or newer
 
-এই প্রোজেক্টটি **GitHub Pages**-এ হোস্ট করার জন্য সম্পূর্ণ প্রস্তুত করা হয়েছে (`base: './'`, SPA 404 fallback, এবং Automated GitHub Actions Workflow যুক্ত করা আছে)।
+No API key or backend service is required for the current application.
 
-### ধাপ ১: গিট রিপোজিটরি তৈরি ও কোড পুশ করুন (Push to GitHub)
+## Run in Codespaces
 
-আপনার কম্পিউটারে টার্মিনালে নিচের কমান্ডগুলো চালান:
-
-```bash
-# গিট ইনিশিয়ালাইজ করুন (যদি করা না থাকে)
-git init
-
-# সব ফাইল অ্যাড করুন
-git add .
-
-# কমিট করুন
-git commit -m "feat: initial commit ready for GitHub Pages hosting"
-
-# ব্রাঞ্চের নাম main করুন
-git branch -M main
-
-# আপনার GitHub রিপোজিটরির লিঙ্ক যুক্ত করুন (আপনার ইউজারনেম ও রেপোর নাম দিন)
-git remote add origin https://github.com/<YOUR-USERNAME>/<YOUR-REPO-NAME>.git
-
-# গিটহাবে পুশ করুন
-git push -u origin main
-```
-
----
-
-### ধাপ ২: GitHub Pages চালু করুন (Enable GitHub Pages in Settings)
-
-১. গিটহাবে আপনার রিপোজিটরি পেজে যান।
-২. উপরে **Settings** ট্যাবে ক্লিক করুন।
-৩. বাঁ পাশের মেনু থেকে **Pages** সিলেক্ট করুন।
-৪. **Build and deployment** সেকশনের নিচে **Source** ড্রপডাউনে:
-   - **GitHub Actions** সিলেক্ট করুন।
-
-> ⚡ **হয়ে গেল!** আপনার `.github/workflows/deploy.yml` স্বয়ংক্রিয়ভাবে কোড বিল্ড করে GitHub Pages-এ লাইভ করে দেবে। কয়েক মুহূর্ত পর আপনি `https://<YOUR-USERNAME>.github.io/<YOUR-REPO-NAME>/` লিঙ্কে আপনার ওয়েবসাইট দেখতে পাবেন।
-
----
-
-## 🛠️ লোকাল ডেভেলপমেন্ট (Local Development)
-
-GitHub Pages-এর **Source** অবশ্যই **GitHub Actions** রাখতে হবে, যাতে production
-build-এর `dist` artifact deploy হয়।
+From the repository root:
 
 ```bash
-# ডিপেন্ডেন্সি ইন্সটল করুন
-npm install
-
-# ডেভেলপমেন্ট সার্ভার চালু করুন
-npm run dev
-
-# প্রোডাকশন বিল্ড তৈরি করুন
+npm ci
+npm run lint
 npm run build
+npm run dev
 ```
+
+Open the forwarded port `3000` in the **Ports** panel. The development server
+listens on `0.0.0.0`, so it is available through the Codespaces forwarded URL.
+
+## Available commands
+
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | Start the Vite development server on port 3000 |
+| `npm run lint` | Type-check the TypeScript project |
+| `npm run build` | Create the production build in `dist/` |
+| `npm run preview` | Preview the production build locally |
+| `npm run clean` | Remove generated build files |
+
+## Deploy to GitHub Pages
+
+The workflow in `.github/workflows/deploy.yml` runs on pushes to `main` and on
+manual dispatch. It installs dependencies with `npm ci`, runs type-checking and
+the production build, then deploys `dist/` with GitHub Pages.
+
+In the repository settings, set **Pages > Build and deployment > Source** to
+**GitHub Actions**. The configured custom domain is:
+
+`https://resume-genie.bdhyperashraf71.me`
+
+After pushing to `main`, check the **Actions** tab for the deployment result.
+
+## Privacy
+
+CVs, photos, signatures, and other entered data are kept locally in the browser.
+Clearing browser site data removes saved application data.
