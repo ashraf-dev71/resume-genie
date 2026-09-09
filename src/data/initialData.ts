@@ -28,7 +28,7 @@ export const INITIAL_CV_DATA: CVData = {
       title: 'Lead Software Engineer',
       company: 'Pathao Technologies Ltd.',
       location: 'Dhaka, Bangladesh',
-      startDate: '2022 - Present',
+      startDate: '2022',
       endDate: 'Present',
       current: true,
       bullets: [

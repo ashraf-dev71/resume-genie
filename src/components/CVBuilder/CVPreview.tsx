@@ -160,7 +160,7 @@ export const CVPreview: React.FC<CVPreviewProps> = ({
             {exportSuccess && (
               <span className="hidden sm:flex items-center gap-1 text-[11px] font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-1 rounded-md">
                 <CheckCircle2 className="w-3.5 h-3.5" />
-                <span>{lang === 'bn' ? 'ডাউনলোড সম্পন্ন!' : 'Downloaded!'}</span>
+                <span>Downloaded!</span>
               </span>
             )}
 
@@ -169,14 +169,14 @@ export const CVPreview: React.FC<CVPreviewProps> = ({
               onClick={handleDownloadPDF}
               disabled={isExporting !== null}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-semibold bg-indigo-600 hover:bg-indigo-700 disabled:opacity-60 text-white shadow-xs transition active:scale-95 cursor-pointer"
-              title={lang === 'bn' ? 'রিজিউমে PDF ফাইল ডাউনলোড করুন' : 'Download CV as PDF'}
+              title="Download CV as PDF"
             >
               {isExporting === 'pdf' ? (
                 <Loader2 className="w-3.5 h-3.5 animate-spin" />
               ) : (
                 <Download className="w-3.5 h-3.5" />
               )}
-              <span>{lang === 'bn' ? 'পিডিএফ' : 'PDF'}</span>
+              <span>PDF</span>
             </button>
 
             <button
@@ -184,21 +184,21 @@ export const CVPreview: React.FC<CVPreviewProps> = ({
               onClick={handleDownloadPNG}
               disabled={isExporting !== null}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-semibold bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 disabled:opacity-60 transition active:scale-95 cursor-pointer"
-              title={lang === 'bn' ? 'ছবি (PNG) হিসেবে ডাউনলোড' : 'Download as PNG Image'}
+              title="Download as PNG Image"
             >
               {isExporting === 'png' ? (
                 <Loader2 className="w-3.5 h-3.5 animate-spin" />
               ) : (
                 <ImageIcon className="w-3.5 h-3.5" />
               )}
-              <span className="hidden sm:inline">{lang === 'bn' ? 'ছবি' : 'PNG'}</span>
+              <span className="hidden sm:inline">PNG</span>
             </button>
 
             <button
               id="btn-cv-print"
               onClick={handlePrint}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition active:scale-95 cursor-pointer"
-              title={lang === 'bn' ? 'A4 প্রিন্ট করুন' : 'Print CV'}
+              title="Print CV"
             >
               <Printer className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">{t.actions.print}</span>
@@ -214,13 +214,13 @@ export const CVPreview: React.FC<CVPreviewProps> = ({
         className="flex-1 overflow-auto p-4 sm:p-8 flex justify-center items-start"
       >
         <div 
-          className="transition-transform duration-150 origin-top shadow-2xl rounded-sm border border-slate-300/80 dark:border-slate-800 overflow-hidden bg-white"
+          className="transition-transform duration-150 origin-top shadow-2xl rounded-sm border border-slate-300/80 dark:border-slate-800 overflow-hidden bg-white w-fit"
           style={{
             transform: `scale(${zoom})`,
             marginBottom: `${(zoom - 1) * 350}px`,
           }}
         >
-          <div ref={cvDocumentRef} id="cv-document-node" className="bg-white">
+          <div ref={cvDocumentRef} id="cv-document-node" className="bg-white w-[210mm] max-w-none shrink-0">
             <CVRenderer data={data} />
           </div>
         </div>

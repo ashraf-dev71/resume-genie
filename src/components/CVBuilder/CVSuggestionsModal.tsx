@@ -49,12 +49,10 @@ export const CVSuggestionsModal: React.FC<CVSuggestionsModalProps> = ({
             </div>
             <div>
               <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                {lang === 'bn' ? 'স্মার্ট এআই পরামর্শ ও অর্জনের পয়েন্ট' : 'Role-Based Smart Suggestions & Metrics'}
+                Role-Based Smart Suggestions & Metrics
               </h3>
               <p className="text-xs text-slate-500 dark:text-slate-400">
-                {lang === 'bn'
-                  ? 'আপনার কাঙ্ক্ষিত পদের জন্য প্রাক-প্রস্তুত শক্তিশালী বাক্য ও পয়েন্ট'
-                  : 'Pre-engineered, high-impact bullet points and summaries tailored to your target job role.'}
+                Pre-engineered, high-impact bullet points and summaries tailored to your target job role.
               </p>
             </div>
           </div>
@@ -140,7 +138,7 @@ export const CVSuggestionsModal: React.FC<CVSuggestionsModalProps> = ({
                 Recommended Professional Summaries:
               </span>
               {currentRole.summaries.map((summaryObj, i) => {
-                const text = lang === 'bn' ? summaryObj.bn : summaryObj.en;
+                const text = summaryObj.en;
                 const copyId = `summary-${i}`;
                 return (
                   <div
@@ -180,7 +178,7 @@ export const CVSuggestionsModal: React.FC<CVSuggestionsModalProps> = ({
                 Quantified Achievement Bullet Points:
               </span>
               {currentRole.bulletPoints.map((bp, i) => {
-                const text = lang === 'bn' ? bp.bn : bp.en;
+                const text = bp.en;
                 const copyId = `bullet-${i}`;
                 return (
                   <div

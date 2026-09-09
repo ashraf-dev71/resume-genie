@@ -358,7 +358,7 @@ export const CVTemplateModal: React.FC<CVTemplateModalProps> = ({
                 className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs shadow-md transition active:scale-95"
               >
                 <Check className="w-4 h-4" />
-                <span>{lang === 'bn' ? 'এই টেমপ্লেট ব্যবহার করুন' : 'Apply This Template'}</span>
+                <span>Apply This Template</span>
               </button>
 
               <button
@@ -399,13 +399,11 @@ export const CVTemplateModal: React.FC<CVTemplateModalProps> = ({
             <div className="flex items-center gap-2">
               <Sparkles className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
               <h2 className="text-lg font-bold text-slate-900 dark:text-white">
-                {lang === 'bn' ? '১১২+ প্রফেশনাল এটিএস-ফ্রেন্ডলি টেমপ্লেট' : '112+ ATS-Friendly Resume Templates'}
+                112+ ATS-Friendly Resume Templates
               </h2>
             </div>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-              {lang === 'bn' 
-                ? 'কর্পোরেট, ক্রিয়েটিভ, আইটি এবং অ্যাকাডেমিক ফিল্ডের জন্য প্রিভিউ সহ সম্পূর্ণ রিয়েল-টাইম ফরম্যাট'
-                : 'Select or preview in real-time. Full fidelity match with live exports.'}
+              Select or preview in real-time. Full fidelity match with live exports.
             </p>
           </div>
           <button
@@ -429,7 +427,7 @@ export const CVTemplateModal: React.FC<CVTemplateModalProps> = ({
                   : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
               }`}
             >
-              {lang === 'bn' ? `সবগুলো (${CV_TEMPLATES.length})` : `All (${CV_TEMPLATES.length})`}
+              All ({CV_TEMPLATES.length})
             </button>
             {(['corporate', 'creative', 'it', 'academic'] as TemplateCategory[]).map((cat) => {
               const count = CV_TEMPLATES.filter((tpl) => tpl.category === cat).length;
@@ -443,7 +441,7 @@ export const CVTemplateModal: React.FC<CVTemplateModalProps> = ({
                       : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
                   }`}
                 >
-                  {CATEGORY_LABELS[cat][lang]} ({count})
+                  {CATEGORY_LABELS[cat].en} ({count})
                 </button>
               );
             })}
@@ -454,7 +452,7 @@ export const CVTemplateModal: React.FC<CVTemplateModalProps> = ({
             <Search className="w-4 h-4 absolute left-3 top-2.5 text-slate-400" />
             <input
               type="text"
-              placeholder={lang === 'bn' ? 'টেমপ্লেট বা স্টাইল খুঁজুন...' : 'Search templates, styles, Harvard, ATS...'}
+              placeholder="Search templates, styles, Harvard, ATS..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-9 pr-4 py-1.5 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"

@@ -146,6 +146,38 @@ export interface CVData {
 export type IDCardLayout = 'vertical' | 'horizontal';
 export type IDCardTheme = 'university-blue' | 'tech-emerald' | 'crimson-academy' | 'midnight-gold' | 'medical-cyan' | 'cyber-slate';
 
+export type IDCardDesignType = 
+  | 'standard-corporate'
+  | 'tech-silicon'
+  | 'executive-smartchip'
+  | 'medical-emergency'
+  | 'cyber-keycard'
+  | 'university-classic'
+  | 'conference-vip'
+  | 'swiss-minimalist'
+  | 'sports-athletic'
+  | 'police-security'
+  | 'horizontal-dualcol'
+  | 'horizontal-campus'
+  | 'horizontal-transit';
+
+export interface IDCardTemplate {
+  id: string;
+  name: string;
+  category: 'corporate' | 'academic' | 'medical' | 'school' | 'tech' | 'event' | 'minimalist' | 'security';
+  layout: IDCardLayout;
+  designType?: IDCardDesignType;
+  primaryColor: string;
+  secondaryColor: string;
+  accentColor: string;
+  headerStyle: 'gradient' | 'curved' | 'slanted' | 'minimal' | 'badge-top' | 'split-vertical' | 'frame' | 'cyber' | 'shield';
+  bgPattern?: 'dots' | 'grid' | 'waves' | 'hex' | 'circuit' | 'stripes' | 'none';
+  borderStyle?: 'rounded-2xl' | 'rounded-xl' | 'pill' | 'chamfer';
+  badgeText: string;
+  description: string;
+  previewGradient: string;
+}
+
 export interface StudentIDData {
   instituteName: string;
   instituteSub: string;
@@ -168,8 +200,13 @@ export interface StudentIDData {
   barcodeNumber: string;
   layout: IDCardLayout;
   theme: IDCardTheme;
+  designType?: IDCardDesignType;
   primaryColor: string;
   secondaryColor: string;
+  selectedTemplateId?: string;
+  headerStyle?: 'gradient' | 'curved' | 'slanted' | 'minimal' | 'badge-top' | 'split-vertical' | 'frame' | 'cyber' | 'shield';
+  bgPattern?: 'dots' | 'grid' | 'waves' | 'hex' | 'circuit' | 'stripes' | 'none';
+  accentColor?: string;
 }
 
 // Skill Badge Types
@@ -188,6 +225,63 @@ export interface SkillBadge {
 
 // Generic Certificate Types
 export type CertificateTheme = 'gold-classic' | 'navy-ivy' | 'emerald-modern' | 'burgundy-royal';
+
+export type CertificateLayoutType =
+  | 'classic-royal'
+  | 'modern-bauhaus'
+  | 'corporate-sash'
+  | 'art-deco'
+  | 'cyber-matrix'
+  | 'academic-diploma'
+  | 'botanical-ivy'
+  | 'sports-championship'
+  | 'minimalist-monoline'
+  | 'youth-achievement';
+
+export type CertificateBorderStyle = 
+  | 'double-gold' 
+  | 'ornate-crest' 
+  | 'modern-geometric' 
+  | 'ribbon-frame' 
+  | 'minimalist-line' 
+  | 'vintage-guilloche' 
+  | 'cyber-bracket' 
+  | 'diploma-classic' 
+  | 'botanical-ivy' 
+  | 'royal-seal';
+
+export type CertificateSealType = 
+  | 'gold-sunburst' 
+  | 'silver-star' 
+  | 'emerald-shield' 
+  | 'bronze-medal' 
+  | 'ruby-crest' 
+  | 'sapphire-ribbon';
+
+export type CertificateFontPairing = 
+  | 'serif-regal' 
+  | 'playfair-modern' 
+  | 'cinzel-academic' 
+  | 'sans-tech' 
+  | 'classic-formal';
+
+export interface CertificateTemplate {
+  id: string;
+  name: string;
+  category: 'academic' | 'corporate' | 'course' | 'honors' | 'tech' | 'creative' | 'sports' | 'appreciation';
+  layoutType?: CertificateLayoutType;
+  borderStyle: CertificateBorderStyle;
+  primaryColor: string;
+  secondaryColor: string;
+  accentColor: string;
+  backgroundColor: string;
+  sealType: CertificateSealType;
+  fontPairing: CertificateFontPairing;
+  headerText: string;
+  title: string;
+  description: string;
+  tags: string[];
+}
 
 export interface CertificateData {
   certificateId: string;
@@ -211,6 +305,14 @@ export interface CertificateData {
   sealStyle?: 'gold' | 'silver' | 'bronze' | 'emerald';
   themeColor?: string;
   theme?: CertificateTheme;
+  layoutType?: CertificateLayoutType;
+  selectedTemplateId?: string;
+  borderStyle?: CertificateBorderStyle;
+  sealType?: CertificateSealType;
+  fontPairing?: CertificateFontPairing;
+  primaryColor?: string;
+  secondaryColor?: string;
+  backgroundColor?: string;
 }
 
 export type { RoleSuggestion } from './data/suggestions';

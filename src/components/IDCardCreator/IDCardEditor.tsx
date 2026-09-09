@@ -19,9 +19,10 @@ import {
   Phone,
   Mail,
   MapPin,
-  HeartPulse
+  HeartPulse,
+  Layers
 } from 'lucide-react';
-import { StudentIDData, Language, IDCardLayout, IDCardTheme } from '../../types';
+import { StudentIDData, Language, IDCardLayout, IDCardTheme, IDCardDesignType } from '../../types';
 import { TRANSLATIONS } from '../../data/i18n';
 import { processUploadedImage } from '../../utils/helpers';
 import { INITIAL_STUDENT_ID_DATA } from '../../data/initialData';
@@ -32,6 +33,7 @@ interface IDCardEditorProps {
   onChange: (updated: StudentIDData) => void;
   onOpenCrop: (imageSrc: string) => void;
   onOpenSignature: () => void;
+  onOpenTemplates?: () => void;
   lang: Language;
 }
 
@@ -40,9 +42,10 @@ export const IDCardEditor: React.FC<IDCardEditorProps> = ({
   onChange,
   onOpenCrop,
   onOpenSignature,
+  onOpenTemplates,
   lang,
 }) => {
-  const t = TRANSLATIONS[lang];
+  const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
   const photoInputRef = useRef<HTMLInputElement>(null);
   const logoInputRef = useRef<HTMLInputElement>(null);
 
@@ -100,6 +103,17 @@ export const IDCardEditor: React.FC<IDCardEditorProps> = ({
         </div>
 
         <div className="flex items-center gap-2">
+          {onOpenTemplates && (
+            <button
+              type="button"
+              onClick={onOpenTemplates}
+              className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 shadow-xs transition"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+              <span>72+ Card Templates</span>
+            </button>
+          )}
+
           <button
             type="button"
             onClick={() => onChange(INITIAL_STUDENT_ID_DATA)}
@@ -147,6 +161,51 @@ export const IDCardEditor: React.FC<IDCardEditorProps> = ({
             <div className="w-6 h-4 border-2 border-current rounded-sm" />
             <span>{t.idCard.horizontal} (Landscape)</span>
           </button>
+        </div>
+
+        {/* Design Layout Architecture (Structure Selector) */}
+        <div className="pt-3 border-t border-slate-100 dark:border-slate-800 space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+              <Layers className="w-3.5 h-3.5 text-indigo-500" />
+              <span>Design Layout Archetype</span>
+            </span>
+            <span className="text-[10px] text-indigo-600 dark:text-indigo-400 font-mono font-semibold">
+              {data.designType || 'Auto-Detected'}
+            </span>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+            {[
+              { id: 'executive-smartchip', label: 'Executive Smartchip' },
+              { id: 'tech-silicon', label: 'Tech Silicon Pass' },
+              { id: 'cyber-keycard', label: 'Cyber Keycard' },
+              { id: 'medical-emergency', label: 'Medical Emergency' },
+              { id: 'conference-vip', label: 'VIP Pass & Lanyard' },
+              { id: 'swiss-minimalist', label: 'Swiss Minimalist' },
+              { id: 'sports-athletic', label: 'Athletic Varsity' },
+              { id: 'police-security', label: 'Police / Security' },
+              { id: 'horizontal-dualcol', label: 'Landscape Dual-Col' },
+              { id: 'standard-corporate', label: 'Standard Corporate' },
+            ].map((archetype) => (
+              <button
+                key={archetype.id}
+                type="button"
+                onClick={() => onChange({ 
+                  ...data, 
+                  designType: archetype.id as IDCardDesignType,
+                  layout: archetype.id === 'horizontal-dualcol' ? 'horizontal' : data.layout
+                })}
+                className={`p-2 rounded-xl border text-left text-xs font-medium transition ${
+                  data.designType === archetype.id
+                    ? 'border-indigo-600 bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 font-bold ring-2 ring-indigo-500/20'
+                    : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300'
+                }`}
+              >
+                {archetype.label}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Color Theme Selector & Custom Color Pickers */}

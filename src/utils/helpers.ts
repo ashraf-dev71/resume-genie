@@ -93,19 +93,6 @@ export const generateQRCodeDataUrl = async (text: string): Promise<string> => {
 };
 
 /**
- * Translates Western digits (0-9) to Bengali digits (০-৯)
- */
-export const toBengaliDigits = (str: string | number): string => {
-  const western = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-  const bengali = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
-  let res = String(str);
-  western.forEach((w, i) => {
-    res = res.replaceAll(w, bengali[i]);
-  });
-  return res;
-};
-
-/**
  * Triggers clean print dialog formatted specifically for A4 portrait, A4 landscape, or CR80 ID Card
  */
 export const triggerPrint = (

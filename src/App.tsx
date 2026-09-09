@@ -36,10 +36,18 @@ import {
   CertificateMaker 
 } from './components/CertificateMaker/CertificateMaker';
 import { 
+  IDCardTemplateModal 
+} from './components/IDCardCreator/IDCardTemplateModal';
+import { 
+  CertificateTemplateModal 
+} from './components/CertificateMaker/CertificateTemplateModal';
+import { 
   AppTab, 
   Language, 
   CVData, 
   CVTemplate,
+  IDCardTemplate,
+  CertificateTemplate,
   StudentIDData, 
   SkillBadge, 
   CertificateData, 
@@ -72,9 +80,11 @@ export default function App() {
   const [lang, setLang] = useState<Language>(() => {
     return (localStorage.getItem(LANG_STORAGE_KEY) as Language) || 'en';
   });
-  const [darkMode, setDarkMode] = useState<boolean>(() => {
-    return localStorage.getItem(THEME_STORAGE_KEY) === 'true';
-  });
+  // Force Night (Dark) mode permanently
+  useEffect(() => {
+    document.documentElement.classList.add('dark');
+    localStorage.setItem(THEME_STORAGE_KEY, 'true');
+  }, []);
   const [isSaved, setIsSaved] = useState<boolean>(true);
   const [mobileViewMode, setMobileViewMode] = useState<'editor' | 'preview'>('editor');
 
@@ -95,6 +105,8 @@ export default function App() {
   // Modal states
   const [isDisclaimerOpen, setIsDisclaimerOpen] = useState<boolean>(false);
   const [isTemplateModalOpen, setIsTemplateModalOpen] = useState<boolean>(false);
+  const [isIdCardTemplateModalOpen, setIsIdCardTemplateModalOpen] = useState<boolean>(false);
+  const [isCertificateTemplateModalOpen, setIsCertificateTemplateModalOpen] = useState<boolean>(false);
   const [isSuggestionsModalOpen, setIsSuggestionsModalOpen] = useState<boolean>(false);
   const [imageCropData, setImageCropData] = useState<{
     imageSrc: string;
@@ -104,20 +116,10 @@ export default function App() {
     onSave: (sig: string) => void;
   } | null>(null);
 
-  // Dark mode effect
+  // Language effect - permanently English
   useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-    localStorage.setItem(THEME_STORAGE_KEY, String(darkMode));
-  }, [darkMode]);
-
-  // Language effect
-  useEffect(() => {
-    localStorage.setItem(LANG_STORAGE_KEY, lang);
-  }, [lang]);
+    localStorage.setItem(LANG_STORAGE_KEY, 'en');
+  }, []);
 
   // Auto-save effect for CV
   useEffect(() => {
@@ -143,8 +145,7 @@ export default function App() {
     setIsSaved(true);
   }, [certificateData]);
 
-  const handleToggleTheme = () => setDarkMode((prev) => !prev);
-  const handleToggleLanguage = () => setLang((prev) => (prev === 'en' ? 'bn' : 'en'));
+  const handleToggleLanguage = () => {};
 
   // CV Handlers
   const handleCvChange = (updated: CVData) => {
@@ -160,6 +161,41 @@ export default function App() {
       secondaryColor: template.secondaryColor,
       fontFamily: template.fontFamily,
       showPhoto: template.hasPhoto,
+    }));
+  };
+
+  const handleSelectIdCardTemplate = (template: IDCardTemplate) => {
+    setIsSaved(false);
+    setStudentIdData((prev) => ({
+      ...prev,
+      selectedTemplateId: template.id,
+      layout: template.layout,
+      designType: template.designType,
+      primaryColor: template.primaryColor,
+      secondaryColor: template.secondaryColor,
+      accentColor: template.accentColor,
+      headerStyle: template.headerStyle,
+      bgPattern: template.bgPattern,
+      borderStyle: template.borderStyle,
+      badgeText: template.badgeText,
+    }));
+  };
+
+  const handleSelectCertificateTemplate = (template: CertificateTemplate) => {
+    setIsSaved(false);
+    setCertificateData((prev) => ({
+      ...prev,
+      selectedTemplateId: template.id,
+      layoutType: template.layoutType,
+      title: template.title,
+      primaryColor: template.primaryColor,
+      secondaryColor: template.secondaryColor,
+      accentColor: template.accentColor,
+      backgroundColor: template.backgroundColor,
+      borderStyle: template.borderStyle,
+      sealType: template.sealType,
+      fontPairing: template.fontPairing,
+      description: template.description || prev.description,
     }));
   };
 
@@ -283,7 +319,7 @@ export default function App() {
   };
 
   return (
-    <div className={`min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 ${lang === 'bn' ? 'font-bengali' : 'font-sans'}`}>
+    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans">
       
       {/* Top Main Navigation Bar */}
       <Navbar
@@ -298,8 +334,6 @@ export default function App() {
         }}
         lang={lang}
         onToggleLanguage={handleToggleLanguage}
-        darkMode={darkMode}
-        onToggleTheme={handleToggleTheme}
         onOpenDisclaimer={() => setIsDisclaimerOpen(true)}
         onExport={handleDownloadCurrentPDF}
         onDownloadPDF={handleDownloadCurrentPDF}
@@ -403,6 +437,7 @@ export default function App() {
                     },
                   });
                 }}
+                onOpenTemplates={() => setIsIdCardTemplateModalOpen(true)}
                 lang={lang}
               />
             </div>
@@ -411,6 +446,7 @@ export default function App() {
             <div className={`flex-1 h-full overflow-hidden ${mobileViewMode === 'editor' ? 'hidden lg:block' : 'block'}`}>
               <IDCardPreview
                 data={studentIdData}
+                onOpenTemplates={() => setIsIdCardTemplateModalOpen(true)}
                 lang={lang}
               />
             </div>
@@ -448,6 +484,7 @@ export default function App() {
                 },
               });
             }}
+            onOpenTemplates={() => setIsCertificateTemplateModalOpen(true)}
             lang={lang}
           />
         )}
@@ -463,7 +500,7 @@ export default function App() {
         lang={lang}
       />
 
-      {/* 2. 112+ Template Library Modal */}
+      {/* 2. 112+ CV Template Library Modal */}
       <CVTemplateModal
         isOpen={isTemplateModalOpen}
         onClose={() => setIsTemplateModalOpen(false)}
@@ -473,7 +510,27 @@ export default function App() {
         currentCvData={cvData}
       />
 
-      {/* 3. Role-Based AI Suggestions Modal */}
+      {/* 3. 72+ ID Card Template Library Modal */}
+      <IDCardTemplateModal
+        isOpen={isIdCardTemplateModalOpen}
+        onClose={() => setIsIdCardTemplateModalOpen(false)}
+        selectedTemplateId={studentIdData.selectedTemplateId}
+        onSelectTemplate={handleSelectIdCardTemplate}
+        currentData={studentIdData}
+        lang={lang}
+      />
+
+      {/* 4. 75+ Certificate Template Library Modal */}
+      <CertificateTemplateModal
+        isOpen={isCertificateTemplateModalOpen}
+        onClose={() => setIsCertificateTemplateModalOpen(false)}
+        selectedTemplateId={certificateData.selectedTemplateId}
+        onSelectTemplate={handleSelectCertificateTemplate}
+        currentData={certificateData}
+        lang={lang}
+      />
+
+      {/* 5. Role-Based AI Suggestions Modal */}
       <CVSuggestionsModal
         isOpen={isSuggestionsModalOpen}
         onClose={() => setIsSuggestionsModalOpen(false)}
@@ -483,7 +540,7 @@ export default function App() {
         lang={lang}
       />
 
-      {/* 4. Client-Side Image Cropper Modal */}
+      {/* 6. Client-Side Image Cropper Modal */}
       {imageCropData && (
         <ImageCropperModal
           isOpen={true}
@@ -497,7 +554,7 @@ export default function App() {
         />
       )}
 
-      {/* 5. Draw / Upload Signature Canvas Modal */}
+      {/* 7. Draw / Upload Signature Canvas Modal */}
       {signatureModal && (
         <SignatureCanvas
           isOpen={true}

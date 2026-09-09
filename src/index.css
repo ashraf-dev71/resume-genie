@@ -6,12 +6,16 @@
   }
 }
 
-.font-bengali {
-  font-family: 'Hind Siliguri', 'Plus Jakarta Sans', sans-serif !important;
+.font-cinzel {
+  font-family: 'Cinzel', Georgia, serif;
 }
 
 .font-serif-display {
   font-family: 'Playfair Display', Georgia, serif;
+}
+
+.font-outfit {
+  font-family: 'Outfit', sans-serif;
 }
 
 .font-mono-code {
@@ -34,21 +38,20 @@
   background: rgba(100, 116, 139, 0.6);
 }
 
+/* Hide scrollbar for category tabs */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 /* Print Specific Rules for perfect A4, Landscape Certificate, and CR80 ID Card outputs */
 @media print {
   @page {
     margin: 0;
     size: auto;
-  }
-
-  @page certificate {
-    size: landscape;
-    margin: 0;
-  }
-
-  @page portrait {
-    size: portrait;
-    margin: 0;
   }
 
   body.print-certificate {
@@ -57,6 +60,16 @@
 
   body.print-portrait {
     page: portrait;
+  }
+
+  @page certificate {
+    size: A4 landscape;
+    margin: 0;
+  }
+
+  @page portrait {
+    size: A4 portrait;
+    margin: 0;
   }
 
   html, body, #root, main, .overflow-hidden, .overflow-auto {
@@ -83,8 +96,8 @@
   }
 
   .page-break-avoid {
-    break-inside: avoid;
-    page-break-inside: avoid;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
   }
 
   /* Specific A4 dimensions container (CV) */
@@ -96,21 +109,11 @@
     box-shadow: none !important;
     border: none !important;
     background: #ffffff !important;
+    box-sizing: border-box !important;
+    page-break-inside: auto !important;
   }
 
   /* Specific A4 Landscape dimensions container (Certificate) */
-  .certificate-print-container {
-    width: 297mm !important;
-    height: 210mm !important;
-    max-width: 297mm !important;
-    max-height: 210mm !important;
-    margin: 0 auto !important;
-    transform: none !important;
-    box-shadow: none !important;
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
-  }
-
   .certificate-print-wrapper {
     transform: none !important;
     margin: 0 !important;
@@ -119,26 +122,69 @@
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    width: 100% !important;
-    height: 100vh !important;
-  }
-
-  /* CR80 ID Card dimensions: 85.6mm x 53.98mm */
-  .id-card-print-vertical {
-    width: 53.98mm !important;
-    height: 85.6mm !important;
-    margin: 10mm auto !important;
+    width: 297mm !important;
+    height: 210mm !important;
+    max-width: 297mm !important;
+    max-height: 210mm !important;
     page-break-inside: avoid !important;
     break-inside: avoid !important;
+  }
+
+  .certificate-outer-wrapper {
+    transform: none !important;
     box-shadow: none !important;
+    margin: 0 auto !important;
+    width: 297mm !important;
+    height: 210mm !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  .certificate-print-box {
+    width: 297mm !important;
+    height: 210mm !important;
+    max-width: 297mm !important;
+    max-height: 210mm !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+  }
+
+  /* CR80 ID Card dimensions: centered on print paper with crisp border */
+  .id-card-print-stage {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-height: 100vh !important;
+    margin: 0 auto !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  .id-card-print-vertical {
+    width: 320px !important;
+    height: 500px !important;
+    margin: 20mm auto !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    box-shadow: 0 0 0 1px #cbd5e1 !important;
+    print-color-adjust: exact !important;
+    -webkit-print-color-adjust: exact !important;
   }
 
   .id-card-print-horizontal {
-    width: 85.6mm !important;
-    height: 53.98mm !important;
-    margin: 10mm auto !important;
+    width: 500px !important;
+    height: 320px !important;
+    margin: 20mm auto !important;
     page-break-inside: avoid !important;
     break-inside: avoid !important;
-    box-shadow: none !important;
+    box-shadow: 0 0 0 1px #cbd5e1 !important;
+    print-color-adjust: exact !important;
+    -webkit-print-color-adjust: exact !important;
   }
 }

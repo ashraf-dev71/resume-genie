@@ -10,7 +10,8 @@ import {
   Download,
   Image as ImageIcon,
   Loader2,
-  CheckCircle2
+  CheckCircle2,
+  Sparkles
 } from 'lucide-react';
 import { StudentIDData, Language } from '../../types';
 import { IDCardRenderer } from './IDCardRenderer';
@@ -21,11 +22,13 @@ import { downloadElementAsPDF, downloadElementAsPNG } from '../../utils/exportUt
 interface IDCardPreviewProps {
   data: StudentIDData;
   lang: Language;
+  onOpenTemplates?: () => void;
 }
 
 export const IDCardPreview: React.FC<IDCardPreviewProps> = ({
   data,
   lang,
+  onOpenTemplates,
 }) => {
   const [isBackSide, setIsBackSide] = useState(false);
   const [showBoth, setShowBoth] = useState(false);
@@ -81,6 +84,16 @@ export const IDCardPreview: React.FC<IDCardPreviewProps> = ({
         
         {/* Flip & View Modes */}
         <div className="flex items-center gap-2">
+          {onOpenTemplates && (
+            <button
+              onClick={onOpenTemplates}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs transition"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+              <span>72+ Templates</span>
+            </button>
+          )}
+
           <button
             onClick={() => {
               setShowBoth(false);
@@ -129,7 +142,7 @@ export const IDCardPreview: React.FC<IDCardPreviewProps> = ({
             {exportSuccess && (
               <span className="hidden sm:flex items-center gap-1 text-[11px] font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-1 rounded-md">
                 <CheckCircle2 className="w-3.5 h-3.5" />
-                <span>{lang === 'bn' ? 'ডাউনলোড সম্পন্ন!' : 'Downloaded!'}</span>
+                <span>Downloaded!</span>
               </span>
             )}
 
@@ -138,14 +151,14 @@ export const IDCardPreview: React.FC<IDCardPreviewProps> = ({
               onClick={handleDownloadPDF}
               disabled={isExporting !== null}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-semibold bg-indigo-600 hover:bg-indigo-700 disabled:opacity-60 text-white shadow-xs transition active:scale-95 cursor-pointer"
-              title={lang === 'bn' ? 'স্টুডেন্ট আইডি কার্ড PDF ডাউনলোড' : 'Download ID Card as PDF'}
+              title="Download ID Card as PDF"
             >
               {isExporting === 'pdf' ? (
                 <Loader2 className="w-3.5 h-3.5 animate-spin" />
               ) : (
                 <Download className="w-3.5 h-3.5" />
               )}
-              <span>{lang === 'bn' ? 'পিডিএফ' : 'PDF'}</span>
+              <span>PDF</span>
             </button>
 
             <button
@@ -153,21 +166,21 @@ export const IDCardPreview: React.FC<IDCardPreviewProps> = ({
               onClick={handleDownloadPNG}
               disabled={isExporting !== null}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-semibold bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 disabled:opacity-60 transition active:scale-95 cursor-pointer"
-              title={lang === 'bn' ? 'উচ্চ রেজোলিউশন ছবি (PNG) হিসেবে ডাউনলোড করুন' : 'Download as High-Res PNG Image'}
+              title="Download as High-Res PNG Image"
             >
               {isExporting === 'png' ? (
                 <Loader2 className="w-3.5 h-3.5 animate-spin" />
               ) : (
                 <ImageIcon className="w-3.5 h-3.5" />
               )}
-              <span className="hidden sm:inline">{lang === 'bn' ? 'ছবি (PNG)' : 'PNG'}</span>
+              <span className="hidden sm:inline">PNG</span>
             </button>
 
             <button
               id="btn-idcard-print"
               onClick={handlePrint}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition active:scale-95 cursor-pointer"
-              title={lang === 'bn' ? 'প্রিন্ট করুন' : 'Print ID Card'}
+              title="Print ID Card"
             >
               <Printer className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">{t.actions.print}</span>

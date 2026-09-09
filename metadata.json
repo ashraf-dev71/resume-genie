@@ -1,6 +1,6 @@
 {
   "name": "ResumeGenie & ID Creator",
-  "description": "Client-side ATS-friendly CV builder, student ID card generator, and skill badge tracker with 100+ templates, bilingual English and Bengali support, and 100% private local storage.",
+  "description": "Professional ATS CV builder, CR80 student & employee ID card generator, and certificate designer with 250+ templates, auto-scaling responsive view, and flawless print alignment.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

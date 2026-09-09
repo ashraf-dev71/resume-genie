@@ -123,16 +123,15 @@ export const CVEditor: React.FC<CVEditorProps> = ({
   };
 
   const addBangladeshiJobPreset = (preset: BangladeshiJobPreset) => {
-    const isBn = lang === 'bn' || data.outputLanguage === 'bn';
     const newItem: ExperienceItem = {
       id: `exp-${Date.now()}`,
-      title: isBn ? preset.titleBn : preset.title,
-      company: isBn ? preset.companyBn : preset.company,
+      title: preset.title,
+      company: preset.company,
       location: preset.location,
       startDate: preset.startDate,
       endDate: preset.endDate,
       current: preset.current,
-      bullets: isBn ? [...preset.bulletsBn] : [...preset.bulletsEn],
+      bullets: [...preset.bulletsEn],
     };
     onChange({ ...data, experiences: [...data.experiences, newItem] });
   };
@@ -633,10 +632,10 @@ export const CVEditor: React.FC<CVEditorProps> = ({
                   <span className="text-base">🇧🇩</span>
                   <div>
                     <span className="font-bold text-emerald-900 dark:text-emerald-200 text-xs block">
-                      {lang === 'bn' ? 'বাংলাদেশি চাকরির প্রিসেট (ব্যাংক, গার্মেন্টস, আইটি, এনজিও)' : 'Bangladeshi Job Presets (Banking, RMG, IT, NGO)'}
+                      Bangladeshi Job Presets (Banking, RMG, IT, NGO)
                     </span>
                     <span className="text-[11px] text-emerald-700 dark:text-emerald-400">
-                      {lang === 'bn' ? 'বাস্তবধর্মী কোম্পানির নাম ও অর্জনের বিবরণীসহ সরাসরি সিভিতে যোগ করুন' : 'One-click fill with realistic Bangladeshi companies, positions & metrics'}
+                      One-click fill with realistic Bangladeshi companies, positions & metrics
                     </span>
                   </div>
                 </div>
@@ -646,7 +645,7 @@ export const CVEditor: React.FC<CVEditorProps> = ({
                   className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-emerald-600 hover:bg-emerald-700 text-white shadow-2xs transition flex items-center gap-1 cursor-pointer"
                 >
                   <Sparkles className="w-3 h-3" />
-                  <span>{showBdJobPresets ? (lang === 'bn' ? 'বন্ধ করুন' : 'Hide') : (lang === 'bn' ? 'প্রিসেট দেখুন' : 'Explore Presets')}</span>
+                  <span>{showBdJobPresets ? 'Hide' : 'Explore Presets'}</span>
                 </button>
               </div>
 
@@ -665,7 +664,7 @@ export const CVEditor: React.FC<CVEditorProps> = ({
                             : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-emerald-100/60 border border-emerald-200/80 dark:border-emerald-800'
                         }`}
                       >
-                        {cat === 'All' ? (lang === 'bn' ? 'সবগুলো' : 'All') : cat}
+                        {cat}
                       </button>
                     ))}
                   </div>
@@ -682,14 +681,14 @@ export const CVEditor: React.FC<CVEditorProps> = ({
                           <div>
                             <div className="flex items-start justify-between gap-1">
                               <span className="font-bold text-slate-900 dark:text-white text-xs leading-tight">
-                                {lang === 'bn' ? preset.titleBn : preset.title}
+                                {preset.title}
                               </span>
                               <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 font-semibold shrink-0">
                                 {preset.category.split(' ')[0]}
                               </span>
                             </div>
                             <div className="text-[11px] text-slate-600 dark:text-slate-400 mt-1 font-medium">
-                              🏢 {lang === 'bn' ? preset.companyBn : preset.company}
+                              🏢 {preset.company}
                             </div>
                             <div className="text-[10px] text-slate-400 mt-0.5">
                               📍 {preset.location} • {preset.startDate} - {preset.endDate}
@@ -702,7 +701,7 @@ export const CVEditor: React.FC<CVEditorProps> = ({
                             className="w-full py-1 px-2 rounded-md bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[11px] flex items-center justify-center gap-1 shadow-2xs cursor-pointer transition"
                           >
                             <Plus className="w-3 h-3" />
-                            <span>{lang === 'bn' ? '+ সিভিতে যোগ করুন' : '+ Add to CV'}</span>
+                            <span>+ Add to CV</span>
                           </button>
                         </div>
                       ))}
@@ -849,10 +848,10 @@ export const CVEditor: React.FC<CVEditorProps> = ({
                   <span className="text-base">🇧🇩</span>
                   <div>
                     <span className="font-bold text-blue-900 dark:text-blue-200 text-xs block">
-                      {lang === 'bn' ? 'বাংলাদেশি ডিগ্রি প্রিসেট (SSC, HSC, বিএসসি, বিবিএ, ডিপ্লোমা, MBBS)' : 'Bangladeshi Education Presets (SSC, HSC, B.Sc., BBA, Diploma, MBBS)'}
+                      Bangladeshi Education Presets (SSC, HSC, B.Sc., BBA, Diploma, MBBS)
                     </span>
                     <span className="text-[11px] text-blue-700 dark:text-blue-400">
-                      {lang === 'bn' ? 'বুয়েট, ঢাবি, নটর ডেম, শিক্ষা বোর্ড ও জিপিএ ফরম্যাটসহ এক ক্লিকে যোগ করুন' : 'Instant 1-click add with top BD universities, colleges, boards & GPA standards'}
+                      Instant 1-click add with top BD universities, colleges, boards & GPA standards
                     </span>
                   </div>
                 </div>
@@ -862,7 +861,7 @@ export const CVEditor: React.FC<CVEditorProps> = ({
                   className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-2xs transition flex items-center gap-1 cursor-pointer"
                 >
                   <Sparkles className="w-3 h-3" />
-                  <span>{showBdEduPresets ? (lang === 'bn' ? 'বন্ধ করুন' : 'Hide') : (lang === 'bn' ? 'প্রিসেট দেখুন' : 'Explore Presets')}</span>
+                  <span>{showBdEduPresets ? 'Hide' : 'Explore Presets'}</span>
                 </button>
               </div>
 
@@ -881,7 +880,7 @@ export const CVEditor: React.FC<CVEditorProps> = ({
                             : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-blue-100/60 border border-blue-200/80 dark:border-blue-800'
                         }`}
                       >
-                        {cat === 'All' ? (lang === 'bn' ? 'সবগুলো' : 'All') : cat}
+                        {cat}
                       </button>
                     ))}
                   </div>
@@ -898,7 +897,7 @@ export const CVEditor: React.FC<CVEditorProps> = ({
                           <div>
                             <div className="flex items-start justify-between gap-1">
                               <span className="font-bold text-slate-900 dark:text-white text-xs leading-tight">
-                                {lang === 'bn' ? preset.labelBn : preset.label}
+                                {preset.label}
                               </span>
                               <span className="text-[10px] px-1.5 py-0.5 rounded bg-blue-100 dark:bg-blue-950 text-blue-800 dark:text-blue-300 font-semibold shrink-0">
                                 {preset.category.split(' ')[0]}
@@ -918,7 +917,7 @@ export const CVEditor: React.FC<CVEditorProps> = ({
                             className="w-full py-1 px-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white font-semibold text-[11px] flex items-center justify-center gap-1 shadow-2xs cursor-pointer transition"
                           >
                             <Plus className="w-3 h-3" />
-                            <span>{lang === 'bn' ? '+ ডিগ্রিতে যোগ করুন' : '+ Add to Education'}</span>
+                            <span>+ Add to Education</span>
                           </button>
                         </div>
                       ))}
@@ -957,69 +956,69 @@ export const CVEditor: React.FC<CVEditorProps> = ({
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                   <div>
                     <label className="font-medium text-slate-600 dark:text-slate-400 block mb-0.5">
-                      {lang === 'bn' ? 'শিক্ষা প্রতিষ্ঠান / বিশ্ববিদ্যালয়' : 'Institution / University'}
+                      Institution / University
                     </label>
                     <input
                       type="text"
                       list="bd-institutions-list"
                       value={edu.institution}
                       onChange={(e) => updateEducation(edu.id, 'institution', e.target.value)}
-                      placeholder="e.g. University of Dhaka / BUET / NDC"
+                      placeholder="e.g. University of Dhaka / Harvard / MIT"
                       className="w-full px-2.5 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-md"
                     />
                   </div>
                   <div>
                     <label className="font-medium text-slate-600 dark:text-slate-400 block mb-0.5">
-                      {lang === 'bn' ? 'ডিগ্রি / সনদ' : 'Degree / Examination'}
+                      Degree / Examination
                     </label>
                     <input
                       type="text"
                       value={edu.degree}
                       onChange={(e) => updateEducation(edu.id, 'degree', e.target.value)}
-                      placeholder="e.g. B.Sc. in CSE / HSC / BBA"
+                      placeholder="e.g. B.Sc. in Computer Science / High School Diploma"
                       className="w-full px-2.5 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-md"
                     />
                   </div>
                   <div>
                     <label className="font-medium text-slate-600 dark:text-slate-400 block mb-0.5">
-                      {lang === 'bn' ? 'বিভাগ / মেজর / বোর্ড' : 'Department / Major / Board'}
+                      Department / Major / Field
                     </label>
                     <input
                       type="text"
                       list="bd-boards-list"
                       value={edu.field || ''}
                       onChange={(e) => updateEducation(edu.id, 'field', e.target.value)}
-                      placeholder="e.g. Computer Science & Eng. / Science / Dhaka Board"
+                      placeholder="e.g. Computer Science & Engineering"
                       className="w-full px-2.5 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-md"
                     />
                   </div>
                   <div>
                     <label className="font-medium text-slate-600 dark:text-slate-400 block mb-0.5">
-                      {lang === 'bn' ? 'ফলাফল (CGPA / GPA)' : 'CGPA / Grade'}
+                      CGPA / Grade
                     </label>
                     <input
                       type="text"
                       value={edu.grade}
                       onChange={(e) => updateEducation(edu.id, 'grade', e.target.value)}
-                      placeholder="e.g. CGPA: 3.85 / 4.00 or GPA: 5.00"
+                      placeholder="e.g. CGPA: 3.85 / 4.00"
                       className="w-full px-2.5 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-md"
                     />
                   </div>
                   <div>
                     <label className="font-medium text-slate-600 dark:text-slate-400 block mb-0.5">
-                      {lang === 'bn' ? 'শুরুর বছর' : 'Start Year'}
+                      Start Year
                     </label>
                     <input
                       type="text"
                       value={edu.startDate}
                       onChange={(e) => updateEducation(edu.id, 'startDate', e.target.value)}
-                      placeholder="e.g. 2019"
+                      placeholder="e.g. 2020"
                       className="w-full px-2.5 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-md"
                     />
                   </div>
                   <div>
                     <label className="font-medium text-slate-600 dark:text-slate-400 block mb-0.5">
-                      {lang === 'bn' ? 'পাস / সমাপ্তির বছর' : 'Passing / Graduation Year'}
+                      Passing / Graduation Year
                     </label>
                     <input
                       type="text"

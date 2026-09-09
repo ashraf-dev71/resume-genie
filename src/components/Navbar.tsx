@@ -5,14 +5,12 @@ import {
   Award, 
   ScrollText, 
   Globe, 
-  Sun, 
-  Moon, 
   ShieldCheck, 
   Printer, 
   Download,
   CheckCircle2
 } from 'lucide-react';
-import { AppTab, Language, ThemeMode } from '../types';
+import { AppTab, Language } from '../types';
 import { TRANSLATIONS } from '../data/i18n';
 
 interface NavbarProps {
@@ -22,10 +20,6 @@ interface NavbarProps {
   lang: Language;
   setLang?: (lang: Language) => void;
   onToggleLanguage?: () => void;
-  theme?: ThemeMode;
-  setTheme?: (theme: ThemeMode) => void;
-  darkMode?: boolean;
-  onToggleTheme?: () => void;
   onOpenDisclaimer: () => void;
   onExport?: () => void;
   onDownloadPDF?: () => void;
@@ -40,10 +34,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   lang,
   setLang,
   onToggleLanguage,
-  theme,
-  setTheme,
-  darkMode,
-  onToggleTheme,
   onOpenDisclaimer,
   onExport,
   onDownloadPDF,
@@ -68,15 +58,6 @@ export const Navbar: React.FC<NavbarProps> = ({
     }
   };
 
-  const isDark = darkMode !== undefined ? darkMode : theme === 'dark';
-  const handleThemeToggle = () => {
-    if (onToggleTheme) {
-      onToggleTheme();
-    } else if (setTheme) {
-      setTheme(isDark ? 'light' : 'dark');
-    }
-  };
-
   const tabs: { id: AppTab; label: string; icon: React.ReactNode }[] = [
     { id: 'cv-builder', label: t.tabs.cvBuilder, icon: <FileText className="w-4 h-4" /> },
     { id: 'id-creator', label: t.tabs.idCreator, icon: <CreditCard className="w-4 h-4" /> },
@@ -97,14 +78,14 @@ export const Navbar: React.FC<NavbarProps> = ({
             <div>
               <div className="flex items-center gap-2">
                 <span className="font-bold text-lg text-slate-900 dark:text-white tracking-tight">
-                  {lang === 'bn' ? 'রিজিউমিজিনি' : 'ResumeGenie'}
+                  ResumeGenie
                 </span>
                 <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-200/60 dark:border-indigo-800/60">
                   v1.0
                 </span>
               </div>
               <p className="text-xs text-slate-500 dark:text-slate-400 hidden sm:block">
-                {lang === 'bn' ? 'স্টুডেন্ট আইডি ও প্রফেশনাল সিভি মেকার' : 'ATS CV & Student ID Creator'}
+                ATS CV & Student ID Creator
               </p>
             </div>
           </div>
@@ -139,27 +120,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span>{isSaved ? t.actions.autoSaved : 'Saving...'}</span>
             </div>
 
-            {/* Language Switcher */}
-            <button
-              id="btn-language-toggle"
-              onClick={handleLanguageToggle}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 transition"
-              title="Switch language between English & Bengali"
-            >
-              <Globe className="w-4 h-4 text-indigo-500" />
-              <span>{lang === 'en' ? 'বাংলা' : 'English'}</span>
-            </button>
-
-            {/* Theme Switcher */}
-            <button
-              id="btn-theme-toggle"
-              onClick={handleThemeToggle}
-              className="p-1.5 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 transition"
-              title={isDark ? t.actions.lightMode : t.actions.darkMode}
-            >
-              {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-            </button>
-
             {/* Legal / Disclaimer Notice */}
             <button
               id="btn-disclaimer-modal"
@@ -175,11 +135,11 @@ export const Navbar: React.FC<NavbarProps> = ({
               id="btn-navbar-download-pdf"
               onClick={onDownloadPDF || onExport}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs transition active:scale-95 cursor-pointer"
-              title={lang === 'bn' ? 'পিডিএফ ফাইল ডাউনলোড করুন' : 'Download Document as PDF'}
+              title="Download Document as PDF"
             >
               <Download className="w-4 h-4" />
               <span className="hidden sm:inline">{t.actions.downloadPdf}</span>
-              <span className="sm:hidden">{lang === 'bn' ? 'পিডিএফ' : 'PDF'}</span>
+              <span className="sm:hidden">PDF</span>
             </button>
 
             {/* Print Button */}

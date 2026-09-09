@@ -25,12 +25,10 @@ interface CVRendererProps {
 
 export const CVRenderer: React.FC<CVRendererProps> = ({ data }) => {
   const currentTemplate = CV_TEMPLATES.find((t) => t.id === data.selectedTemplateId) || CV_TEMPLATES[0];
-  const lang = data.outputLanguage || 'en';
-  const t = TRANSLATIONS[lang];
+  const t = TRANSLATIONS.en;
 
   // Font family mapping
   const getFontFamilyClass = () => {
-    if (lang === 'bn') return 'font-bengali';
     const font = data.fontFamily || currentTemplate.fontFamily || 'sans';
     switch (font) {
       case 'serif': return 'font-serif';
@@ -310,6 +308,17 @@ export const CVRenderer: React.FC<CVRendererProps> = ({ data }) => {
   // Experience Section
   const renderExperience = (isTimeline = false) => {
     if (!data.experiences || data.experiences.length === 0) return null;
+
+    const formatExperienceDate = (exp: (typeof data.experiences)[0]) => {
+      const start = exp.startDate?.trim() || '';
+      if (exp.current) {
+        const cleanStart = start.replace(/[-–—]?\s*(present|বর্তমান)/gi, '').trim();
+        return cleanStart ? `${cleanStart} – ${t.cvHeadings.present}` : t.cvHeadings.present;
+      }
+      if (!exp.endDate) return start;
+      return `${start} – ${exp.endDate}`;
+    };
+
     return (
       <div className="page-break-avoid mb-4">
         <SectionHeader title={t.cvHeadings.experience} icon={<Briefcase className="w-3.5 h-3.5" />} />
@@ -334,7 +343,7 @@ export const CVRenderer: React.FC<CVRendererProps> = ({ data }) => {
                     {exp.location && <span className="text-slate-500"> • {exp.location}</span>}
                   </div>
                   <div className="text-right text-[11px] font-semibold text-slate-500 shrink-0 bg-slate-100 px-2 py-0.5 rounded">
-                    {exp.startDate} – {exp.current ? t.cvHeadings.present : exp.endDate}
+                    {formatExperienceDate(exp)}
                   </div>
                 </div>
 
@@ -363,7 +372,7 @@ export const CVRenderer: React.FC<CVRendererProps> = ({ data }) => {
                     {exp.location && <span className="text-slate-500"> • {exp.location}</span>}
                   </div>
                   <div className="text-right text-[11px] font-medium text-slate-500 shrink-0">
-                    {exp.startDate} – {exp.current ? t.cvHeadings.present : exp.endDate}
+                    {formatExperienceDate(exp)}
                   </div>
                 </div>
 
