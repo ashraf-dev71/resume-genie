@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { 
-  Shield, 
-  MapPin, 
-  Phone, 
-  Mail, 
-  Droplet, 
-  Calendar, 
+import {
+  Shield,
+  MapPin,
+  Phone,
+  Mail,
+  Droplet,
+  Calendar,
   AlertCircle,
   GraduationCap,
   Building,
@@ -37,7 +37,7 @@ interface IDCardRendererProps {
 
 // 1. Realistic EMV Smart Chip Graphic
 const EMVChipGraphic: React.FC<{ size?: 'sm' | 'md' }> = ({ size = 'md' }) => (
-  <div 
+  <div
     className={`${size === 'sm' ? 'w-8 h-6' : 'w-10 h-8'} rounded-md bg-gradient-to-br from-amber-200 via-amber-300 to-amber-500 border border-amber-600/80 shadow-xs relative overflow-hidden flex items-center justify-center`}
     title="EMV Smart Microchip"
   >
@@ -55,7 +55,7 @@ const EMVChipGraphic: React.FC<{ size?: 'sm' | 'md' }> = ({ size = 'md' }) => (
 
 // 2. Holographic Foil Security Badge
 const HologramBadge: React.FC<{ size?: number }> = ({ size = 28 }) => (
-  <div 
+  <div
     className="rounded-full bg-gradient-to-tr from-cyan-400 via-purple-300 to-rose-400 opacity-90 border-2 border-white/90 shadow-xs flex items-center justify-center relative overflow-hidden"
     style={{ width: `${size}px`, height: `${size}px` }}
     title="Holographic Security Seal"
@@ -66,9 +66,9 @@ const HologramBadge: React.FC<{ size?: number }> = ({ size = 28 }) => (
 );
 
 // 3. Realistic Barcode Component
-const BarcodeVisual: React.FC<{ code: string; width?: number; height?: number; dark?: boolean }> = ({ 
-  code, 
-  width = 180, 
+const BarcodeVisual: React.FC<{ code: string; width?: number; height?: number; dark?: boolean }> = ({
+  code,
+  width = 180,
   height = 32,
   dark = false
 }) => {
@@ -77,13 +77,13 @@ const BarcodeVisual: React.FC<{ code: string; width?: number; height?: number; d
   ];
   return (
     <div className="flex flex-col items-center">
-      <div 
+      <div
         className="flex justify-between items-end overflow-hidden px-1"
         style={{ width: `${width}px`, height: `${height}px` }}
       >
         {bars.map((bWidth, idx) => (
-          <div 
-            key={idx} 
+          <div
+            key={idx}
             className={`${dark ? 'bg-cyan-300' : 'bg-slate-950'} h-full`}
             style={{ width: `${bWidth * 1.3}px` }}
           />
@@ -138,7 +138,7 @@ export const IDCardRenderer: React.FC<IDCardRendererProps> = ({
   const renderBackgroundPattern = () => {
     if (bgPattern === 'grid') {
       return (
-        <div 
+        <div
           className="absolute inset-0 pointer-events-none opacity-[0.04]"
           style={{
             backgroundImage: `linear-gradient(to right, #000 1px, transparent 1px), linear-gradient(to bottom, #000 1px, transparent 1px)`,
@@ -149,7 +149,7 @@ export const IDCardRenderer: React.FC<IDCardRendererProps> = ({
     }
     if (bgPattern === 'dots') {
       return (
-        <div 
+        <div
           className="absolute inset-0 pointer-events-none opacity-[0.05]"
           style={{
             backgroundImage: `radial-gradient(#000 1.2px, transparent 1.2px)`,
@@ -160,7 +160,7 @@ export const IDCardRenderer: React.FC<IDCardRendererProps> = ({
     }
     if (bgPattern === 'circuit') {
       return (
-        <div 
+        <div
           className="absolute inset-0 pointer-events-none opacity-[0.06]"
           style={{
             backgroundImage: `radial-gradient(circle at 50% 50%, #000 1.5px, transparent 1.5px), linear-gradient(45deg, transparent 48%, #000 49%, #000 51%, transparent 52%)`,
@@ -171,7 +171,7 @@ export const IDCardRenderer: React.FC<IDCardRendererProps> = ({
     }
     if (bgPattern === 'hex') {
       return (
-        <div 
+        <div
           className="absolute inset-0 pointer-events-none opacity-[0.04]"
           style={{
             backgroundImage: `radial-gradient(circle at 100% 100%, #000 1px, transparent 1px), radial-gradient(circle at 0% 0%, #000 1px, transparent 1px)`,
@@ -182,7 +182,7 @@ export const IDCardRenderer: React.FC<IDCardRendererProps> = ({
     }
     if (bgPattern === 'stripes') {
       return (
-        <div 
+        <div
           className="absolute inset-0 pointer-events-none opacity-[0.035]"
           style={{
             backgroundImage: `repeating-linear-gradient(45deg, #000, #000 1.5px, transparent 1.5px, transparent 10px)`,
@@ -194,25 +194,25 @@ export const IDCardRenderer: React.FC<IDCardRendererProps> = ({
   };
 
   // Corner radius class
-  const cardCornerClass = data.borderStyle === 'rounded-xl' 
-    ? 'rounded-xl' 
-    : data.borderStyle === 'chamfer' 
-    ? 'rounded-md' 
+  const cardCornerClass = data.borderStyle === 'rounded-xl'
+    ? 'rounded-xl'
+    : data.borderStyle === 'chamfer'
+    ? 'rounded-md'
     : 'rounded-2xl';
 
   // Shared generic photo box
   const renderPhoto = (className: string, rounded = 'rounded-xl') => {
     if (data.studentPhotoUrl) {
       return (
-        <img 
-          src={data.studentPhotoUrl} 
-          alt={data.studentName} 
+        <img
+          src={data.studentPhotoUrl}
+          alt={data.studentName}
           className={`w-full h-full object-cover ${rounded}`}
         />
       );
     }
     return (
-      <div 
+      <div
         className={`w-full h-full ${rounded} flex flex-col items-center justify-center text-slate-400`}
         style={{ backgroundColor: `${primaryColor}10` }}
       >
@@ -227,7 +227,7 @@ export const IDCardRenderer: React.FC<IDCardRendererProps> = ({
   if (effectiveDesignType === 'tech-silicon') {
     if (isBackSide) {
       return (
-        <div 
+        <div
           className={`id-card-print-vertical relative w-[320px] h-[500px] bg-slate-900 ${cardCornerClass} shadow-xl border border-slate-800 overflow-hidden flex flex-col justify-between p-5 text-white select-none`}
           style={{ boxSizing: 'border-box' }}
         >
@@ -281,7 +281,7 @@ export const IDCardRenderer: React.FC<IDCardRendererProps> = ({
 
     // FRONT
     return (
-      <div 
+      <div
         className={`id-card-print-vertical relative w-[320px] h-[500px] bg-slate-900 ${cardCornerClass} shadow-xl border border-slate-800 overflow-hidden flex flex-col justify-between select-none text-white`}
         style={{ boxSizing: 'border-box' }}
       >
@@ -294,7 +294,7 @@ export const IDCardRenderer: React.FC<IDCardRendererProps> = ({
         </div>
 
         {/* Left vertical accent rail */}
-        <div 
+        <div
           className="absolute left-0 top-0 bottom-0 w-2.5 z-10"
           style={{ backgroundColor: primaryColor }}
         />
@@ -322,7 +322,7 @@ export const IDCardRenderer: React.FC<IDCardRendererProps> = ({
         {/* Main Body: Photo + Name side-by-side / asymmetric */}
         <div className="px-6 pt-3 z-10">
           <div className="flex items-start gap-4">
-            <div 
+            <div
               className="w-24 h-28 rounded-xl border-2 bg-slate-950 shadow-lg overflow-hidden shrink-0"
               style={{ borderColor: accentColor }}
             >
@@ -336,7 +336,7 @@ export const IDCardRenderer: React.FC<IDCardRendererProps> = ({
               <h2 className="font-bold text-lg text-white tracking-tight leading-tight mt-0.5">
                 {data.studentName || 'Alex Chen'}
               </h2>
-              <div 
+              <div
                 className="inline-block mt-1 px-2 py-0.5 rounded text-[10px] font-mono font-bold text-white shadow-xs"
                 style={{ backgroundColor: primaryColor }}
               >
@@ -393,7 +393,7 @@ export const IDCardRenderer: React.FC<IDCardRendererProps> = ({
   if (effectiveDesignType === 'executive-smartchip') {
     if (isBackSide) {
       return (
-        <div 
+        <div
           className={`id-card-print-vertical relative w-[320px] h-[500px] bg-slate-50 ${cardCornerClass} shadow-xl border border-slate-300 overflow-hidden flex flex-col justify-between p-5 text-slate-800 select-none`}
           style={{ boxSizing: 'border-box' }}
         >
@@ -451,16 +451,16 @@ export const IDCardRenderer: React.FC<IDCardRendererProps> = ({
 
     // FRONT
     return (
-      <div 
+      <div
         className={`id-card-print-vertical relative w-[320px] h-[500px] bg-gradient-to-b from-white via-slate-50 to-slate-100 ${cardCornerClass} shadow-xl border border-slate-300 overflow-hidden flex flex-col justify-between select-none text-slate-900`}
         style={{ boxSizing: 'border-box' }}
       >
         {renderBackgroundPattern()}
 
         {/* Top Header Banner */}
-        <div 
+        <div
           className="px-5 pt-4 pb-3 text-white flex items-center justify-between relative z-10"
-          style={{ 
+          style={{
             backgroundColor: primaryColor,
             backgroundImage: `linear-gradient(135deg, ${primaryColor}, ${secondaryColor})`
           }}
@@ -491,7 +491,7 @@ export const IDCardRenderer: React.FC<IDCardRendererProps> = ({
             </div>
           </div>
 
-          <div 
+          <div
             className="w-24 h-28 rounded-xl border-2 bg-white shadow-md overflow-hidden p-0.5"
             style={{ borderColor: primaryColor }}
           >
@@ -504,7 +504,7 @@ export const IDCardRenderer: React.FC<IDCardRendererProps> = ({
           <h2 className="font-bold text-base text-slate-900 tracking-tight font-serif line-clamp-1">
             {data.studentName || 'Eleanor Vance'}
           </h2>
-          <div 
+          <div
             className="inline-block mt-1 px-3 py-0.5 rounded-full text-[10px] font-bold tracking-wider text-white shadow-xs uppercase"
             style={{ backgroundColor: secondaryColor }}
           >
@@ -547,8 +547,79 @@ export const IDCardRenderer: React.FC<IDCardRendererProps> = ({
   // ARCHETYPE 3: MEDICAL EMERGENCY (Hospital Doctor / Staff Identification)
   // =========================================================================
   if (effectiveDesignType === 'medical-emergency') {
+    if (isBackSide) {
+      return (
+        <div
+          className={`id-card-print-vertical relative w-[320px] h-[500px] bg-white ${cardCornerClass} shadow-xl border-2 border-rose-600 overflow-hidden flex flex-col justify-between select-none text-slate-900`}
+          style={{ boxSizing: 'border-box' }}
+        >
+          {/* Top Medical Band */}
+          <div className="bg-rose-600 text-white text-center py-2 px-3 shadow-sm z-10 flex items-center justify-between">
+            <span className="font-bold text-[10px] tracking-widest uppercase">
+              EMERGENCY PROTOCOL & CREDENTIALS
+            </span>
+            <Activity className="w-4 h-4 text-rose-200" />
+          </div>
+
+          <div className="px-5 pt-3 text-center z-10 space-y-1">
+            <h4 className="font-bold text-xs uppercase tracking-wider text-rose-700">
+              {data.instituteName || 'Memorial General Hospital'}
+            </h4>
+            <p className="text-[10px] text-slate-500 leading-relaxed px-1">
+              Property of Hospital Authority. In case of emergency or card loss, immediately return to Security Desk or call Trauma Dispatch.
+            </p>
+          </div>
+
+          {/* High Priority Medical Info Box */}
+          <div className="px-5 z-10">
+            <div className="p-3 bg-rose-50 border border-rose-200 rounded-xl space-y-1.5 text-xs">
+              <div className="flex justify-between items-center border-b border-rose-200/60 pb-1">
+                <span className="text-slate-500 text-[10px]">Emergency Hotline:</span>
+                <span className="font-black text-rose-700 font-mono text-[11px]">{data.emergencyContact || '911 / Trauma Desk'}</span>
+              </div>
+              <div className="flex justify-between items-center border-b border-rose-200/60 pb-1">
+                <span className="text-slate-500 text-[10px]">Blood Type:</span>
+                <span className="font-bold text-rose-600 flex items-center gap-1 font-mono">
+                  <Droplet className="w-3 h-3 fill-rose-600" />
+                  {data.bloodGroup || 'O+'}
+                </span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-slate-500 text-[10px]">Duty Pager / Tel:</span>
+                <span className="font-semibold text-slate-800 font-mono text-[11px]">{data.studentPhone || '+1 (555) 019-4822'}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* QR & Barcode */}
+          <div className="px-5 flex items-center justify-between gap-3 z-10">
+            <div className="flex flex-col items-center">
+              {qrDataUrl && (
+                <div className="p-1 bg-white border border-rose-200 rounded-lg shadow-2xs">
+                  <img src={qrDataUrl} alt="QR" className="w-16 h-16" />
+                </div>
+              )}
+              <span className="text-[8px] font-bold text-slate-400 mt-0.5">REGISTRY CHECK</span>
+            </div>
+            <div className="flex-1 flex flex-col items-end space-y-2">
+              <div className="text-center w-full max-w-[120px] border-b border-slate-300 pb-0.5">
+                <span className="text-[9px] font-serif italic text-slate-500 block">Dr. R. Vance, MD</span>
+                <span className="text-[7px] text-slate-400 block uppercase">Chief Medical Officer</span>
+              </div>
+              <BarcodeVisual code={data.barcodeNumber || data.idNumber || '890123456789'} width={130} height={18} />
+            </div>
+          </div>
+
+          <div className="px-5 py-2 bg-rose-600 text-white text-[8px] font-mono flex items-center justify-between z-10">
+            <span>ER TRAUMA DISPATCH // CR80</span>
+            <span>VERIFIED LEVEL-4</span>
+          </div>
+        </div>
+      );
+    }
+
     return (
-      <div 
+      <div
         className={`id-card-print-vertical relative w-[320px] h-[500px] bg-white ${cardCornerClass} shadow-xl border-2 border-rose-600 overflow-hidden flex flex-col justify-between select-none text-slate-900`}
         style={{ boxSizing: 'border-box' }}
       >
@@ -633,16 +704,79 @@ export const IDCardRenderer: React.FC<IDCardRendererProps> = ({
   // ARCHETYPE 4: CYBER SCI-FI KEYCARD (Chamfered Corners & Neon HUD Styling)
   // =========================================================================
   if (effectiveDesignType === 'cyber-keycard') {
+    if (isBackSide) {
+      return (
+        <div
+          className="id-card-print-vertical relative w-[320px] h-[500px] bg-slate-950 shadow-2xl border border-cyan-500/60 overflow-hidden flex flex-col justify-between select-none text-cyan-300 p-4"
+          style={{
+            boxSizing: 'border-box',
+            clipPath: 'polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px)'
+          }}
+        >
+          {/* HUD Grid background */}
+          <div
+            className="absolute inset-0 pointer-events-none opacity-10"
+            style={{
+              backgroundImage: `linear-gradient(to right, #06b6d4 1px, transparent 1px), linear-gradient(to bottom, #06b6d4 1px, transparent 1px)`,
+              backgroundSize: '20px 20px',
+            }}
+          />
+
+          <div className="flex items-center justify-between border-b border-cyan-500/40 pb-2 z-10">
+            <span className="font-mono font-bold text-[10px] tracking-widest text-cyan-200">
+              SYS PROTOCOL // BIOMETRIC BACK
+            </span>
+            <Lock className="w-3.5 h-3.5 text-cyan-400" />
+          </div>
+
+          <div className="p-3 bg-slate-900/90 border border-cyan-900 rounded-lg space-y-1.5 text-[10px] font-mono z-10">
+            <div className="flex justify-between">
+              <span className="text-slate-500">AUTH DIRECTIVE:</span>
+              <span className="text-cyan-300 font-bold">LEVEL-5 RESTRICTED</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-slate-500">CIPHER HASH:</span>
+              <span className="text-emerald-400">SHA256::0x88F9..C1</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-slate-500">SOS OVERRIDE:</span>
+              <span className="text-rose-400 font-bold">{data.emergencyContact || 'SEC-NET 99'}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-slate-500">REVOCATION:</span>
+              <span className="text-slate-300">{data.validity || 'AUTOMATIC 2026'}</span>
+            </div>
+          </div>
+
+          <div className="flex flex-col items-center justify-center space-y-2 z-10 my-auto">
+            {qrDataUrl && (
+              <div className="p-1 bg-white rounded-lg shadow-sm">
+                <img src={qrDataUrl} alt="QR" className="w-20 h-20" />
+              </div>
+            )}
+            <span className="text-[8px] font-mono text-cyan-400 tracking-wider">
+              NFC // SECURE CRYPTO ENCLAVE
+            </span>
+          </div>
+
+          <div className="pt-2 border-t border-cyan-900/60 flex items-center justify-between z-10">
+            <BarcodeVisual code={data.barcodeNumber || data.idNumber || '890123456789'} width={180} height={20} dark />
+            <span className="text-[8px] font-mono text-cyan-500">TOKEN OK</span>
+          </div>
+        </div>
+      );
+    }
+
     return (
-      <div 
+      <div
         className="id-card-print-vertical relative w-[320px] h-[500px] bg-slate-950 shadow-2xl border border-cyan-500/60 overflow-hidden flex flex-col justify-between select-none text-cyan-300 p-4"
-        style={{ 
+        style={{
           boxSizing: 'border-box',
           clipPath: 'polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px)'
         }}
       >
         {/* HUD Grid background */}
-        <div 
+        <div
           className="absolute inset-0 pointer-events-none opacity-10"
           style={{
             backgroundImage: `linear-gradient(to right, #06b6d4 1px, transparent 1px), linear-gradient(to bottom, #06b6d4 1px, transparent 1px)`,
@@ -721,8 +855,63 @@ export const IDCardRenderer: React.FC<IDCardRendererProps> = ({
   // ARCHETYPE 5: CONFERENCE VIP PASS (Large Display Name & Front QR)
   // =========================================================================
   if (effectiveDesignType === 'conference-vip') {
+    if (isBackSide) {
+      return (
+        <div
+          className={`id-card-print-vertical relative w-[320px] h-[500px] bg-white ${cardCornerClass} shadow-xl border border-slate-300 overflow-hidden flex flex-col justify-between select-none text-slate-900`}
+          style={{ boxSizing: 'border-box' }}
+        >
+          {/* Lanyard punch hole cutout */}
+          <div className="w-14 h-3 bg-slate-900 rounded-full mx-auto mt-2 border border-slate-400 shadow-inner z-20" />
+
+          <div className="text-center pt-2 px-4 z-10">
+            <h3 className="text-xs font-black uppercase tracking-widest text-slate-900">
+              EVENT RULES & VENUE ACCESS
+            </h3>
+            <p className="text-[10px] text-slate-500 font-medium">All-Access Pass Holder Privileges</p>
+          </div>
+
+          <div className="px-5 space-y-2 text-xs z-10">
+            <div className="p-2.5 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
+              <span className="font-bold text-[10px] uppercase text-indigo-700 block">Wi-Fi & Digital Lounge</span>
+              <div className="flex justify-between text-[10px]">
+                <span className="text-slate-500">Network SSID:</span>
+                <span className="font-mono font-bold text-slate-800">SummitVIP-5G</span>
+              </div>
+              <div className="flex justify-between text-[10px]">
+                <span className="text-slate-500">Passcode:</span>
+                <span className="font-mono font-bold text-indigo-600">INNOVATE2026</span>
+              </div>
+            </div>
+
+            <div className="text-[10px] text-slate-600 space-y-1">
+              <p>• Badges must be visibly worn at all keynote sessions & workshops.</p>
+              <p>• Valid for speaker green room, VIP networking lounge, and catered lunch.</p>
+              <p className="font-bold text-rose-600">• Event Helpline: {data.emergencyContact || '+1 (800) 555-SUMMIT'}</p>
+            </div>
+          </div>
+
+          <div className="px-5 flex flex-col items-center justify-center space-y-2 z-10">
+            {qrDataUrl && (
+              <div className="p-1.5 bg-white border-2 border-slate-900 rounded-xl shadow-xs">
+                <img src={qrDataUrl} alt="QR" className="w-18 h-18" />
+              </div>
+            )}
+            <BarcodeVisual code={data.barcodeNumber || data.idNumber || '890123456789'} width={180} height={20} />
+          </div>
+
+          <div
+            className="py-2 text-center text-white font-bold text-[9px] uppercase tracking-wider z-10"
+            style={{ backgroundColor: primaryColor }}
+          >
+            CREDENTIAL NON-TRANSFERABLE
+          </div>
+        </div>
+      );
+    }
+
     return (
-      <div 
+      <div
         className={`id-card-print-vertical relative w-[320px] h-[500px] bg-white ${cardCornerClass} shadow-xl border border-slate-300 overflow-hidden flex flex-col justify-between select-none text-slate-900`}
         style={{ boxSizing: 'border-box' }}
       >
@@ -763,7 +952,7 @@ export const IDCardRenderer: React.FC<IDCardRendererProps> = ({
         </div>
 
         {/* Bottom VIP Ribbon */}
-        <div 
+        <div
           className="py-2.5 text-center text-white font-black tracking-widest text-xs uppercase shadow-md z-10"
           style={{ backgroundColor: primaryColor }}
         >
@@ -777,8 +966,59 @@ export const IDCardRenderer: React.FC<IDCardRendererProps> = ({
   // ARCHETYPE 6: SWISS MINIMALIST (Asymmetric Grid & Grotesque Typography)
   // =========================================================================
   if (effectiveDesignType === 'swiss-minimalist') {
+    if (isBackSide) {
+      return (
+        <div
+          className={`id-card-print-vertical relative w-[320px] h-[500px] bg-white ${cardCornerClass} shadow-xl border border-slate-300 overflow-hidden flex flex-col justify-between p-6 select-none text-slate-900 font-sans`}
+          style={{ boxSizing: 'border-box' }}
+        >
+          <div className="flex items-center justify-between border-b-2 border-slate-950 pb-2">
+            <span className="font-bold text-xs uppercase tracking-tight text-slate-950">
+              REGULATIONS & NOTICE
+            </span>
+            <span className="font-mono text-xs font-bold text-slate-400">CR80-B</span>
+          </div>
+
+          <div className="space-y-2 text-xs">
+            <p className="text-[10px] leading-relaxed text-slate-600">
+              This card is the property of <strong className="text-slate-950">{data.instituteName || 'Design Studio Zurich'}</strong>. Cardholder accepts all institutional guidelines upon reception.
+            </p>
+            <div className="border-t border-b border-slate-200 py-2 space-y-1 text-xs">
+              <div className="flex justify-between">
+                <span className="text-slate-400">EMERGENCY:</span>
+                <span className="font-mono font-bold text-rose-600">{data.emergencyContact || '+41 44 632 1111'}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-400">BLOOD TYPE:</span>
+                <span className="font-mono font-bold text-slate-900">{data.bloodGroup || 'A+'}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-400">ISSUED:</span>
+                <span className="font-mono text-slate-700">{data.dob || '2023'}</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between">
+            {qrDataUrl && <img src={qrDataUrl} alt="QR" className="w-16 h-16 border border-slate-900 p-0.5" />}
+            <div className="text-right">
+              <span className="text-[8px] font-mono text-slate-400 block">CARDHOLDER SIGN</span>
+              <div className="w-24 h-6 border-b border-slate-950 flex items-end justify-end italic text-[10px] font-serif text-slate-600">
+                {data.studentName ? data.studentName.split(' ')[0] : 'Sign'}
+              </div>
+            </div>
+          </div>
+
+          <div className="border-t-2 border-slate-950 pt-2 flex items-center justify-between">
+            <BarcodeVisual code={data.barcodeNumber || data.idNumber || '890123456789'} width={180} height={22} />
+            <span className="text-[8px] font-mono font-bold">VERIFIED</span>
+          </div>
+        </div>
+      );
+    }
+
     return (
-      <div 
+      <div
         className={`id-card-print-vertical relative w-[320px] h-[500px] bg-white ${cardCornerClass} shadow-xl border border-slate-300 overflow-hidden flex flex-col justify-between p-6 select-none text-slate-900 font-sans`}
         style={{ boxSizing: 'border-box' }}
       >
@@ -836,13 +1076,62 @@ export const IDCardRenderer: React.FC<IDCardRendererProps> = ({
   // ARCHETYPE 7: SPORTS ATHLETIC (Dynamic Diagonal Slashes & Active Club Pass)
   // =========================================================================
   if (effectiveDesignType === 'sports-athletic') {
+    if (isBackSide) {
+      return (
+        <div
+          className={`id-card-print-vertical relative w-[320px] h-[500px] bg-slate-950 ${cardCornerClass} shadow-xl border-2 border-amber-500 overflow-hidden flex flex-col justify-between select-none text-white p-5`}
+          style={{ boxSizing: 'border-box' }}
+        >
+          <div className="flex items-center justify-between border-b border-amber-500/40 pb-2">
+            <span className="font-black text-xs uppercase tracking-wider text-amber-400">
+              CLUB ACCESS & SAFETY
+            </span>
+            <Dumbbell className="w-4 h-4 text-amber-500" />
+          </div>
+
+          <div className="space-y-2 text-xs">
+            <p className="text-[10px] text-slate-400 leading-relaxed">
+              Valid for training facilities, track & recovery suites at {data.instituteName || 'Athletic Club'}.
+            </p>
+            <div className="p-2.5 bg-slate-900 rounded-xl border border-amber-500/30 space-y-1 text-[11px] font-mono">
+              <div className="flex justify-between">
+                <span className="text-slate-400">TRAINER SOS:</span>
+                <span className="font-bold text-amber-400">{data.emergencyContact || 'TRAINER-HOTLINE'}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-400">BLOOD TYPE:</span>
+                <span className="font-bold text-rose-400">{data.bloodGroup || 'O+'}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-400">LOCKER CODE:</span>
+                <span className="text-white font-bold">SEC-{data.idNumber ? data.idNumber.slice(-4) : '2026'}</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col items-center justify-center space-y-2">
+            {qrDataUrl && (
+              <div className="p-1 bg-white rounded-lg">
+                <img src={qrDataUrl} alt="QR" className="w-18 h-18" />
+              </div>
+            )}
+            <BarcodeVisual code={data.barcodeNumber || data.idNumber || '890123456789'} width={180} height={20} dark />
+          </div>
+
+          <div className="text-center text-[8px] font-mono text-slate-500 pt-1 border-t border-slate-800">
+            OFFICIAL ATHLETE PASS • ALL-FACILITY ACCESS
+          </div>
+        </div>
+      );
+    }
+
     return (
-      <div 
+      <div
         className={`id-card-print-vertical relative w-[320px] h-[500px] bg-slate-950 ${cardCornerClass} shadow-xl border-2 border-amber-500 overflow-hidden flex flex-col justify-between select-none text-white`}
         style={{ boxSizing: 'border-box' }}
       >
         {/* Dynamic diagonal speed stripes */}
-        <div 
+        <div
           className="absolute inset-0 pointer-events-none opacity-20"
           style={{
             backgroundImage: `repeating-linear-gradient(-45deg, #f59e0b, #f59e0b 8px, transparent 8px, transparent 24px)`
@@ -901,8 +1190,64 @@ export const IDCardRenderer: React.FC<IDCardRendererProps> = ({
   // ARCHETYPE 8: POLICE / SECURITY OFFICER BADGE
   // =========================================================================
   if (effectiveDesignType === 'police-security') {
+    if (isBackSide) {
+      return (
+        <div
+          className={`id-card-print-vertical relative w-[320px] h-[500px] bg-slate-900 ${cardCornerClass} shadow-xl border-2 border-amber-600 overflow-hidden flex flex-col justify-between select-none text-white p-5`}
+          style={{ boxSizing: 'border-box' }}
+        >
+          <div className="bg-amber-600 -mx-5 -mt-5 py-2 px-4 text-center">
+            <span className="font-black text-[10px] uppercase tracking-widest text-slate-950">
+              OFFICIAL ENFORCEMENT PROTOCOLS
+            </span>
+          </div>
+
+          <div className="space-y-1.5 text-center pt-2">
+            <h4 className="font-bold text-xs uppercase tracking-wider text-amber-400">
+              {data.instituteName || 'SECURITY ENFORCEMENT BUREAU'}
+            </h4>
+            <p className="text-[9.5px] text-slate-400 leading-relaxed font-mono px-1">
+              Bearer is authorized by law to carry designated service credentials. Unauthorized possession is a federal crime.
+            </p>
+          </div>
+
+          <div className="p-3 bg-slate-950 rounded-xl border border-amber-500/40 text-xs font-mono space-y-1">
+            <div className="flex justify-between">
+              <span className="text-slate-400">RADIO FREQ:</span>
+              <span className="text-amber-400 font-bold">TAC-CH-04</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-slate-400">DISPATCH SOS:</span>
+              <span className="text-rose-400 font-bold">{data.emergencyContact || '911 / SEC-DISPATCH'}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-slate-400">BLOOD GROUP:</span>
+              <span className="text-white font-bold">{data.bloodGroup || 'B+'}</span>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between">
+            {qrDataUrl && (
+              <div className="p-1 bg-white rounded-lg">
+                <img src={qrDataUrl} alt="QR" className="w-16 h-16" />
+              </div>
+            )}
+            <div className="flex flex-col items-center">
+              <Fingerprint className="w-12 h-12 text-amber-400/80" />
+              <span className="text-[7.5px] font-mono text-slate-400 mt-1">BIOMETRIC AUTH</span>
+            </div>
+          </div>
+
+          <div className="border-t border-slate-800 pt-2 flex items-center justify-between">
+            <BarcodeVisual code={data.barcodeNumber || data.idNumber || '890123456789'} width={160} height={18} dark />
+            <span className="text-[8px] font-mono text-amber-500 font-bold">ACTIVE</span>
+          </div>
+        </div>
+      );
+    }
+
     return (
-      <div 
+      <div
         className={`id-card-print-vertical relative w-[320px] h-[500px] bg-slate-900 ${cardCornerClass} shadow-xl border-2 border-amber-600 overflow-hidden flex flex-col justify-between select-none text-white`}
         style={{ boxSizing: 'border-box' }}
       >
@@ -961,7 +1306,7 @@ export const IDCardRenderer: React.FC<IDCardRendererProps> = ({
   if (!isVertical || effectiveDesignType === 'horizontal-dualcol' || effectiveDesignType === 'horizontal-campus' || effectiveDesignType === 'horizontal-transit') {
     if (isBackSide) {
       return (
-        <div 
+        <div
           className={`id-card-print-horizontal relative w-[500px] h-[320px] bg-white ${cardCornerClass} shadow-xl border border-slate-200 overflow-hidden flex flex-col justify-between p-5 text-slate-800 select-none`}
           style={{ boxSizing: 'border-box' }}
         >
@@ -1010,16 +1355,16 @@ export const IDCardRenderer: React.FC<IDCardRendererProps> = ({
 
     // HORIZONTAL FRONT
     return (
-      <div 
+      <div
         className={`id-card-print-horizontal relative w-[500px] h-[320px] bg-white ${cardCornerClass} shadow-xl border border-slate-200 overflow-hidden flex flex-col justify-between select-none`}
         style={{ boxSizing: 'border-box' }}
       >
         {renderBackgroundPattern()}
 
         {/* Top Banner */}
-        <div 
+        <div
           className="px-5 py-2.5 text-white flex items-center justify-between relative z-10"
-          style={{ 
+          style={{
             backgroundColor: primaryColor,
             backgroundImage: `linear-gradient(90deg, ${primaryColor}, ${secondaryColor})`,
           }}
@@ -1044,10 +1389,10 @@ export const IDCardRenderer: React.FC<IDCardRendererProps> = ({
 
         {/* Main 3-Column Content: Photo (Left) | Info (Center) | QR / Barcode (Right) */}
         <div className="px-5 py-3 flex items-center gap-5 flex-1 z-10">
-          
+
           {/* Column 1: Photo & Chip */}
           <div className="flex flex-col items-center gap-1.5 shrink-0">
-            <div 
+            <div
               className="w-24 h-28 rounded-xl border-2 bg-slate-50 shadow-md overflow-hidden p-0.5"
               style={{ borderColor: primaryColor }}
             >
@@ -1105,27 +1450,180 @@ export const IDCardRenderer: React.FC<IDCardRendererProps> = ({
   // =========================================================================
   // DEFAULT / STANDARD CORPORATE (Vertical Card)
   // =========================================================================
+  if (isBackSide) {
+    return (
+      <div
+        className={`id-card-print-vertical relative w-[320px] h-[500px] bg-white ${cardCornerClass} shadow-xl border border-slate-200 overflow-hidden flex flex-col justify-between select-none text-slate-800`}
+        style={{ boxSizing: 'border-box' }}
+      >
+        {renderBackgroundPattern()}
+
+        {/* Top Header / Magnetic Stripe & Institution Branding */}
+        <div>
+          {/* Simulated Magnetic Stripe */}
+          <div className="h-9 bg-slate-900 w-full flex items-center justify-between px-4">
+            <span className="text-[8px] font-mono tracking-widest text-slate-400 uppercase">
+              CR80 MAGNETIC TRACK • ISO 7810
+            </span>
+            <span className="text-[8px] font-mono text-slate-500 font-bold">
+              {data.idNumber || '2026'}
+            </span>
+          </div>
+
+          {/* Sub Header Strip */}
+          <div
+            className="px-4 py-1.5 text-white flex items-center justify-between"
+            style={{
+              backgroundColor: primaryColor,
+              backgroundImage: `linear-gradient(90deg, ${primaryColor}, ${secondaryColor})`,
+            }}
+          >
+            <div className="flex items-center gap-1.5 truncate max-w-[210px]">
+              {data.instituteLogoUrl ? (
+                <img
+                  src={data.instituteLogoUrl}
+                  alt="Logo"
+                  className="w-4 h-4 rounded-full bg-white p-0.5 object-cover shrink-0"
+                />
+              ) : (
+                <Building className="w-3.5 h-3.5 text-white shrink-0" />
+              )}
+              <span className="text-[10px] font-bold uppercase tracking-wider truncate">
+                {data.instituteName || 'Institution Name'}
+              </span>
+            </div>
+            <span className="text-[8px] font-mono font-bold bg-white/20 px-1.5 py-0.5 rounded text-white uppercase tracking-wider shrink-0">
+              OFFICIAL ID
+            </span>
+          </div>
+        </div>
+
+        {/* Terms & Conditions / Regulations Section */}
+        <div className="px-4 py-1.5 space-y-1 text-slate-600 relative z-10">
+          <div className="flex items-center gap-1 text-[10px] font-bold text-slate-800 uppercase tracking-wide">
+            <AlertCircle className="w-3 h-3 text-indigo-600 shrink-0" />
+            <span>Cardholder Instructions & Terms</span>
+          </div>
+          <div className="text-[9.5px] leading-relaxed space-y-1 text-slate-600 bg-slate-50 p-2 rounded-lg border border-slate-200/80">
+            <p className="line-clamp-2">
+              • This card remains the property of <strong className="text-slate-800">{data.instituteName || 'the Institution'}</strong> and is strictly non-transferable.
+            </p>
+            <p className="line-clamp-2">
+              • Must be carried at all times and produced on demand by campus authorities or examination halls.
+            </p>
+            <p className="text-[9px] text-indigo-800 dark:text-indigo-900 font-medium truncate">
+              • If found, return to: <span className="underline">{data.address || 'Campus Security & Registrar Office'}</span>
+            </p>
+          </div>
+        </div>
+
+        {/* Essential Card Details: Emergency, Blood Group, Phone */}
+        <div className="px-4 py-1 relative z-10">
+          <div className="grid grid-cols-2 gap-2 text-[10px] bg-slate-50/90 p-2 rounded-lg border border-slate-200">
+            <div className="space-y-0.5">
+              <span className="text-slate-400 block text-[9px] font-medium">Emergency Contact:</span>
+              <span className="font-bold text-rose-600 font-mono block truncate">
+                {data.emergencyContact || data.studentPhone || '+880 1700-000000'}
+              </span>
+            </div>
+            <div className="space-y-0.5">
+              <span className="text-slate-400 block text-[9px] font-medium">Blood Group:</span>
+              <span className="font-bold text-slate-800 flex items-center gap-1 font-mono">
+                <Droplet className="w-3 h-3 text-rose-500 fill-rose-500 shrink-0" />
+                <span>{data.bloodGroup || 'B+'}</span>
+                <span className="text-[8px] font-normal text-slate-400">({data.dob || 'Valid'})</span>
+              </span>
+            </div>
+            {data.studentPhone && (
+              <div className="space-y-0.5 col-span-2 pt-0.5 border-t border-slate-200/60 flex justify-between">
+                <span className="text-slate-400 text-[9px]">Student Tel:</span>
+                <span className="font-semibold text-slate-700 font-mono text-[9.5px]">{data.studentPhone}</span>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Verification Section: QR Code & Barcode */}
+        <div className="px-4 py-1 flex items-center justify-between gap-3 relative z-10">
+          <div className="flex flex-col items-center justify-center shrink-0">
+            {qrDataUrl ? (
+              <div className="p-1 bg-white border border-slate-300 rounded-lg shadow-2xs">
+                <img src={qrDataUrl} alt="QR" className="w-16 h-16" />
+              </div>
+            ) : (
+              <div className="w-16 h-16 bg-slate-100 border border-slate-200 rounded-lg flex items-center justify-center text-[8px] text-slate-400">
+                QR Code
+              </div>
+            )}
+            <span className="text-[7.5px] font-bold text-slate-400 uppercase tracking-tight mt-0.5">
+              SCAN TO VERIFY
+            </span>
+          </div>
+
+          <div className="flex-1 flex flex-col items-end justify-center space-y-1.5">
+            {/* Signature Area */}
+            <div className="text-center w-full max-w-[130px] border-b border-slate-300 pb-0.5">
+              {data.signatureUrl ? (
+                <img
+                  src={data.signatureUrl}
+                  alt="Signature"
+                  className="h-6 object-contain mx-auto"
+                />
+              ) : (
+                <div className="h-6 italic text-[9px] text-slate-400 flex items-end justify-center font-serif">
+                  {data.studentName ? data.studentName.split(' ')[0] + "'s Sign" : 'Cardholder Signature'}
+                </div>
+              )}
+              <span className="text-[7.5px] font-medium text-slate-400 block">Cardholder Signature</span>
+            </div>
+
+            {/* Barcode */}
+            <div className="w-full flex justify-end">
+              <BarcodeVisual
+                code={data.barcodeNumber || data.idNumber || '890123456789'}
+                width={130}
+                height={16}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Security Footer */}
+        <div
+          className="px-4 py-1.5 text-white text-[8px] flex items-center justify-between"
+          style={{ backgroundColor: primaryColor }}
+        >
+          <div className="flex items-center gap-1">
+            <ShieldCheck className="w-3 h-3 text-emerald-300" />
+            <span className="font-semibold tracking-wide">ISO/IEC 7810 ID-1 COMPLIANT</span>
+          </div>
+          <span className="font-mono text-white/80">AUTHENTICATED</span>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div 
+    <div
       className={`id-card-print-vertical relative w-[320px] h-[500px] bg-white ${cardCornerClass} shadow-xl border border-slate-200 overflow-hidden flex flex-col justify-between select-none`}
       style={{ boxSizing: 'border-box' }}
     >
       {renderBackgroundPattern()}
 
       {/* Header */}
-      <div 
+      <div
         className="px-4 pt-4 pb-8 text-white text-center relative overflow-hidden"
-        style={{ 
+        style={{
           backgroundColor: primaryColor,
           backgroundImage: `linear-gradient(135deg, ${primaryColor}, ${secondaryColor})`,
         }}
       >
         <div className="flex items-center justify-center gap-2 mb-1 relative z-10">
           {data.instituteLogoUrl ? (
-            <img 
-              src={data.instituteLogoUrl} 
-              alt="Logo" 
-              className="w-8 h-8 rounded-full bg-white p-0.5 object-cover shadow-xs shrink-0" 
+            <img
+              src={data.instituteLogoUrl}
+              alt="Logo"
+              className="w-8 h-8 rounded-full bg-white p-0.5 object-cover shadow-xs shrink-0"
             />
           ) : (
             <Building className="w-6 h-6 text-white/95 shrink-0" />
@@ -1141,7 +1639,7 @@ export const IDCardRenderer: React.FC<IDCardRendererProps> = ({
 
       {/* Center Portrait & Name */}
       <div className="flex flex-col items-center -mt-9 relative z-10">
-        <div 
+        <div
           className="w-28 h-28 rounded-2xl border-4 bg-white shadow-md overflow-hidden p-0.5"
           style={{ borderColor: primaryColor }}
         >
@@ -1152,7 +1650,7 @@ export const IDCardRenderer: React.FC<IDCardRendererProps> = ({
           {data.studentName || 'Student Full Name'}
         </h2>
 
-        <div 
+        <div
           className="mt-1 px-3 py-0.5 rounded-full text-[11px] font-bold tracking-wider text-white shadow-xs font-mono"
           style={{ backgroundColor: secondaryColor }}
         >
@@ -1198,10 +1696,10 @@ export const IDCardRenderer: React.FC<IDCardRendererProps> = ({
 
         <div className="text-center">
           {data.signatureUrl ? (
-            <img 
-              src={data.signatureUrl} 
-              alt="Signature" 
-              className="h-7 max-w-[95px] object-contain mx-auto" 
+            <img
+              src={data.signatureUrl}
+              alt="Signature"
+              className="h-7 max-w-[95px] object-contain mx-auto"
             />
           ) : (
             <div className="h-6 w-24 border-b border-slate-400 italic text-[10px] text-slate-400 flex items-end justify-center font-serif">

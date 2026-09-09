@@ -1,15 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { 
-  Award, 
-  Printer, 
-  RotateCcw, 
-  Sparkles, 
-  PenTool, 
-  ShieldCheck, 
-  Check, 
+import {
+  Award,
+  Printer,
+  RotateCcw,
+  Sparkles,
+  PenTool,
+  ShieldCheck,
+  Check,
   Calendar,
   Layers,
-  ZoomIn, 
+  ZoomIn,
   ZoomOut,
   Maximize2,
   Download,
@@ -60,13 +60,14 @@ export const CertificateMaker: React.FC<CertificateMakerProps> = ({
     const handleResize = () => {
       if (!containerRef.current) return;
       const rect = containerRef.current.getBoundingClientRect();
-      const availableW = rect.width - 48;
-      const availableH = rect.height - 48;
-      if (availableW > 0 && availableH > 0) {
+      const padding = rect.width < 640 ? 16 : 48;
+      const availableW = rect.width - padding;
+      const availableH = rect.height > 100 ? rect.height - padding : 9999;
+      if (availableW > 0) {
         const scaleW = availableW / 842;
         const scaleH = availableH / 595;
         const optimalScale = Math.min(scaleW, scaleH);
-        setZoom(Math.max(0.35, Math.min(optimalScale, 1.05)));
+        setZoom(Number(Math.max(0.22, Math.min(optimalScale, 1.05)).toFixed(2)));
       }
     };
 
@@ -119,11 +120,12 @@ export const CertificateMaker: React.FC<CertificateMakerProps> = ({
   const handleFitScreen = () => {
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
-    const availableW = rect.width - 48;
-    const availableH = rect.height - 48;
+    const padding = rect.width < 640 ? 16 : 48;
+    const availableW = rect.width - padding;
+    const availableH = rect.height > 100 ? rect.height - padding : 9999;
     const scaleW = availableW / 842;
     const scaleH = availableH / 595;
-    setZoom(Math.max(0.35, Math.min(Math.min(scaleW, scaleH), 1.05)));
+    setZoom(Number(Math.max(0.22, Math.min(Math.min(scaleW, scaleH), 1.05)).toFixed(2)));
   };
 
   const primaryColor = data.primaryColor || '#b45309';
@@ -208,7 +210,7 @@ export const CertificateMaker: React.FC<CertificateMakerProps> = ({
     // Default Gold Sunburst Seal
     return (
       <div className="flex flex-col items-center">
-        <div 
+        <div
           className="w-16 h-16 rounded-full border-2 flex flex-col items-center justify-center p-1 shadow-inner text-center relative"
           style={{ borderColor: primaryColor, backgroundColor: accentColor }}
         >
@@ -233,7 +235,7 @@ export const CertificateMaker: React.FC<CertificateMakerProps> = ({
   const renderBauhausLayout = () => (
     <div className="flex h-full w-full">
       {/* Left 230px Solid Color Block */}
-      <div 
+      <div
         className="w-[230px] h-full p-8 flex flex-col justify-between text-white shrink-0 relative overflow-hidden"
         style={{ backgroundColor: primaryColor }}
       >
@@ -271,7 +273,7 @@ export const CertificateMaker: React.FC<CertificateMakerProps> = ({
         </div>
 
         <div className="my-auto py-4">
-          <h2 
+          <h2
             className="text-4xl font-black tracking-tight text-slate-950 pb-2 border-b-4 inline-block"
             style={{ borderColor: primaryColor }}
           >
@@ -318,7 +320,7 @@ export const CertificateMaker: React.FC<CertificateMakerProps> = ({
   const renderCorporateSashLayout = () => (
     <div className="relative h-full w-full p-10 flex flex-col justify-between bg-white text-slate-900 overflow-hidden border-8 border-slate-800">
       {/* 45-Degree Diagonal Ribbon Sash in Corner */}
-      <div 
+      <div
         className="absolute -top-7 -left-12 w-48 py-2 text-white text-center font-bold text-[10px] tracking-widest uppercase shadow-lg transform -rotate-45"
         style={{ backgroundColor: primaryColor }}
       >
@@ -339,7 +341,7 @@ export const CertificateMaker: React.FC<CertificateMakerProps> = ({
       {/* Recipient */}
       <div className="text-center my-auto py-2">
         <span className="text-xs text-slate-500 italic block mb-1">Presented with distinction to</span>
-        <h2 
+        <h2
           className="text-4xl font-serif font-bold tracking-tight pb-2 inline-block px-8"
           style={{ color: secondaryColor }}
         >
@@ -568,7 +570,7 @@ export const CertificateMaker: React.FC<CertificateMakerProps> = ({
   const renderSportsLayout = () => (
     <div className="relative h-full w-full p-10 flex flex-col justify-between bg-slate-950 text-white border-8 border-amber-500 overflow-hidden select-none">
       {/* Speed slashes in background */}
-      <div 
+      <div
         className="absolute inset-0 pointer-events-none opacity-15"
         style={{
           backgroundImage: `repeating-linear-gradient(-45deg, #f59e0b, #f59e0b 12px, transparent 12px, transparent 36px)`
@@ -677,7 +679,7 @@ export const CertificateMaker: React.FC<CertificateMakerProps> = ({
   // SUB-LAYOUT: CLASSIC ROYAL (Traditional Ornate Guilloche Frame)
   // =========================================================================
   const renderClassicRoyalLayout = () => (
-    <div 
+    <div
       className="relative h-full w-full p-12 flex flex-col justify-between select-none border-12"
       style={{
         borderColor: primaryColor,
@@ -686,7 +688,7 @@ export const CertificateMaker: React.FC<CertificateMakerProps> = ({
       }}
     >
       {/* Inner Decorative Border Frame */}
-      <div 
+      <div
         className="absolute inset-3 border-2 pointer-events-none"
         style={{ borderColor: primaryColor }}
       />
@@ -715,7 +717,7 @@ export const CertificateMaker: React.FC<CertificateMakerProps> = ({
 
       {/* Recipient Full Name */}
       <div className="text-center my-auto py-2">
-        <h2 
+        <h2
           className={`text-4xl ${getRecipientFont()} font-bold tracking-tight pb-2 inline-block border-b-2 px-12`}
           style={{ color: secondaryColor, borderColor: primaryColor }}
         >
@@ -762,10 +764,10 @@ export const CertificateMaker: React.FC<CertificateMakerProps> = ({
 
   return (
     <div className="flex-1 flex flex-col lg:flex-row h-full overflow-hidden">
-      
+
       {/* Left Controls Sidebar (Hidden during print) */}
       <div className="no-print w-full lg:w-[420px] overflow-y-auto p-4 sm:p-6 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 space-y-4 text-xs">
-        
+
         <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
           <div>
             <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
@@ -864,12 +866,12 @@ export const CertificateMaker: React.FC<CertificateMakerProps> = ({
             ].map((preset) => (
               <button
                 key={preset.id}
-                onClick={() => onChange({ 
-                  ...data, 
-                  primaryColor: preset.p, 
+                onClick={() => onChange({
+                  ...data,
+                  primaryColor: preset.p,
                   secondaryColor: preset.s,
                   accentColor: preset.a,
-                  backgroundColor: preset.b 
+                  backgroundColor: preset.b
                 })}
                 className={`flex items-center gap-2 p-2 rounded-lg border text-left transition ${
                   data.primaryColor === preset.p
@@ -1025,10 +1027,10 @@ export const CertificateMaker: React.FC<CertificateMakerProps> = ({
 
       {/* Right Canvas / Preview Area */}
       <div className="flex-1 flex flex-col h-full bg-slate-200 dark:bg-slate-950 overflow-hidden">
-        
+
         {/* Top Floating Viewport Toolbar (Hidden during print) */}
         <div className="no-print p-3 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3 z-10 text-xs">
-          
+
           <div className="flex items-center gap-2">
             <span className="font-mono text-slate-500 font-semibold">A4 Landscape</span>
             <span className="text-slate-300 dark:text-slate-700">•</span>
@@ -1052,10 +1054,18 @@ export const CertificateMaker: React.FC<CertificateMakerProps> = ({
             </button>
             <button
               onClick={handleFitScreen}
-              className="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-200"
-              title="Fit to Screen"
+              className="px-2 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-200 font-medium flex items-center gap-1"
+              title="Fit to Screen width"
             >
               <Maximize2 className="w-3.5 h-3.5" />
+              <span>Fit</span>
+            </button>
+            <button
+              onClick={() => setZoom(1.0)}
+              className="px-2 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-200 font-medium text-[11px]"
+              title="100% Actual Scale"
+            >
+              100%
             </button>
 
             <span className="text-slate-300 dark:text-slate-700">|</span>
@@ -1098,16 +1108,16 @@ export const CertificateMaker: React.FC<CertificateMakerProps> = ({
         </div>
 
         {/* Certificate Display Canvas */}
-        <div 
+        <div
           ref={containerRef}
           className="flex-1 overflow-auto p-4 sm:p-8 flex items-center justify-center certificate-print-wrapper"
         >
-          <div 
+          <div
             className="certificate-outer-wrapper transition-transform duration-150 origin-center shadow-2xl rounded-sm"
             style={{ transform: `scale(${zoom})` }}
           >
             {/* A4 Landscape Document Box: 297mm x 210mm (at screen ratio: 842px x 595px) */}
-            <div 
+            <div
               ref={certificateCardRef}
               id="certificate-print-node"
               className="certificate-print-box relative w-[842px] h-[595px] text-slate-900 select-none overflow-hidden"

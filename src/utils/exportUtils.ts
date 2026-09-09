@@ -63,21 +63,34 @@ function resetAncestorTransforms(element: HTMLElement): () => void {
     transform: string;
     transition: string;
     marginBottom: string;
+    width: string;
+    height: string;
   }> = [];
 
   let curr: HTMLElement | null = element;
   while (curr && curr !== document.body) {
     const style = window.getComputedStyle(curr);
-    if (style.transform && style.transform !== 'none') {
+    const hasTransform = style.transform && style.transform !== 'none';
+    const isScaledWrapper = curr !== element && curr.style.width && curr.style.width.endsWith('px') && parseInt(curr.style.width, 10) < 780;
+
+    if (hasTransform || isScaledWrapper) {
       elementsToRestore.push({
         el: curr,
         transform: curr.style.transform,
         transition: curr.style.transition,
         marginBottom: curr.style.marginBottom,
+        width: curr.style.width,
+        height: curr.style.height,
       });
-      curr.style.transition = 'none';
-      curr.style.transform = 'none';
-      curr.style.marginBottom = '0';
+      if (hasTransform) {
+        curr.style.transition = 'none';
+        curr.style.transform = 'none';
+        curr.style.marginBottom = '0';
+      }
+      if (isScaledWrapper) {
+        curr.style.width = 'auto';
+        curr.style.height = 'auto';
+      }
     }
     curr = curr.parentElement;
   }
@@ -87,6 +100,8 @@ function resetAncestorTransforms(element: HTMLElement): () => void {
       item.el.style.transition = item.transition;
       item.el.style.transform = item.transform;
       item.el.style.marginBottom = item.marginBottom;
+      item.el.style.width = item.width;
+      item.el.style.height = item.height;
     }
   };
 }
@@ -257,7 +272,7 @@ export const downloadElementAsPDF = async (
     fullCanvas.width = img.width;
     fullCanvas.height = img.height;
     const ctx = fullCanvas.getContext('2d', { willReadFrequently: true });
-    
+
     if (!ctx) {
       // Fallback to standard jsPDF multi-page flow if canvas context is unavailable
       const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });

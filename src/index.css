@@ -55,21 +55,17 @@
   }
 
   body.print-certificate {
-    page: certificate;
+    @page {
+      size: A4 landscape;
+      margin: 0;
+    }
   }
 
   body.print-portrait {
-    page: portrait;
-  }
-
-  @page certificate {
-    size: A4 landscape;
-    margin: 0;
-  }
-
-  @page portrait {
-    size: A4 portrait;
-    margin: 0;
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
   }
 
   html, body, #root, main, .overflow-hidden, .overflow-auto {
